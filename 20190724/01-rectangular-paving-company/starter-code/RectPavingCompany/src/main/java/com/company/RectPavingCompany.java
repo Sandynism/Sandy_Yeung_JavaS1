@@ -27,25 +27,25 @@ public class RectPavingCompany {
         //Based on the area and perimeter, it must calculate the total cost of the driveway:
         // The cement for the driveway cost $12.50/square foot.
         // The program must calculate and display the subtotal cost of the cement.
-        double cementCost = area * 12.50;
+        float cementCost = area * 12.50f;
         System.out.println("The cement cost is " + cementCost);
 
         //Prompts the user for the cost of cement
         System.out.println("What is the cost of cement?");
-        double userCementPrice = Double.parseDouble(scanner.nextLine());
-        double userCementSubtotal = area * userCementPrice;
+        float userCementPrice = Float.parseFloat(scanner.nextLine());
+        float userCementSubtotal = area * userCementPrice;
         System.out.println("Based off the user cement price, the cement cost subtotal would be " + userCementSubtotal);
 
 
         //The framing/footers for the driveway cost $8.25/linear foot.
         //The program must calculate and display the subtotal cost of the framing/footers.
-        double framingCost = perimeter * 8.25;
+        float framingCost = perimeter * 8.25f;
         System.out.println("The framing costs are " + framingCost);
 
         //Prompts the user for the cost of the framing/footers
         System.out.println("What is the cost of framing?");
-        double userFramingPrice = Double.parseDouble(scanner.nextLine());
-        double userFramingSubtotal = area * userFramingPrice;
+        float userFramingPrice = Float.parseFloat(scanner.nextLine());
+        float userFramingSubtotal = area * userFramingPrice;
         System.out.println("Based off the user framing price, the cement cost subtotal would be " + userFramingSubtotal);
 
     }

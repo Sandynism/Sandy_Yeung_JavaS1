@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/company/RectPavingCompany.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="240">
+              <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -188,6 +188,9 @@
     <history-entry file="RectPavingCompanyTest - 2019.07.23 at 14h 40m 43s.xml">
       <configuration name="RectPavingCompanyTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="RectPavingCompanyTest - 2019.07.23 at 15h 30m 53s.xml">
+      <configuration name="RectPavingCompanyTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -238,8 +241,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/RectPavingCompany.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="240">
+          <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
         </state>
       </provider>
     </entry>
