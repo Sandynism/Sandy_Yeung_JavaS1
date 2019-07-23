@@ -66,7 +66,7 @@ public class CommandLineGram {
         System.out.println("Hello " + firstName + " " + lastName + "." + "\n" + "Just to confirm, you said your email address was " + email + " and that your Twitter handle was " + twitterHandle + "." + "\n" + "You are " + age + " years old and live in " + country + " and work as a " + profession + ". " + "\n"
         + "Your favorite operating system is " + faveOperatingSystem + "." + "\n" + "Your favorite programming language is " + faveProgrammingLang + "." + "\n"
         + "Your favorite computer scientist is " + faveComScientist + "." + "\n"
-        + "Your favorite keyboard shortcut is " + faveKeyShortcut + "." + "\n" + "My favorite superhero would be " + superhero + ".");
+        + "Your favorite keyboard shortcut is " + faveKeyShortcut + "." + "\n" + "It's so awesome that your favorite superhero is " + superhero + ".");
 
     }
 }
