@@ -55,7 +55,7 @@ public class CommandLineGram {
         // Have you ever built your own computer?
         System.out.println("Have you ever built your own computer?");
         String comBuilder = scanner.nextLine();
-//        String output=(comBuilder="yes")?"Yes, I have built my own computer.":"No, I have not built my own computer.";
+//        String output=(comBuilder="yes") ? "Yes, I have built my own computer." : "No, I have not built my own computer.";
 //        System.out.println(output);
 
         // If you could be any superhero, who would it be?
@@ -63,8 +63,7 @@ public class CommandLineGram {
         String superhero = scanner.nextLine();
 
         // The program must prompt the user for the following information and then display it, nicely formatted, back to the user after all the information has been collected:
-        System.out.println("Hello " + firstName + " " + lastName + "." + "\n" + "Just to confirm, you said your email address was " + email +
-                " and that your Twitter handle was " + twitterHandle + "." + "\n" + "You are " + age + " years old and live in " + country + " and work as a " + profession + ". " + "\n"
+        System.out.println("Hello " + firstName + " " + lastName + "." + "\n" + "Just to confirm, you said your email address was " + email + " and that your Twitter handle was " + twitterHandle + "." + "\n" + "You are " + age + " years old and live in " + country + " and work as a " + profession + ". " + "\n"
         + "Your favorite operating system is " + faveOperatingSystem + "." + "\n" + "Your favorite programming language is " + faveProgrammingLang + "." + "\n"
         + "Your favorite computer scientist is " + faveComScientist + "." + "\n"
         + "Your favorite keyboard shortcut is " + faveKeyShortcut + "." + "\n" + "My favorite superhero would be " + superhero + ".");
