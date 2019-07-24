@@ -27,6 +27,19 @@ public class AverageThree {
 
         float average = total / arr.length;
         System.out.println(average);
+        System.out.format("The average of these numbers is %f%n", average);
+        //format allows you to take the response and use as a variable elsewhere
+        /*format is a string that specifies the formatting to be used and args is a list of the variables to be printed using that formatting. A simple example would be
+
+        System.out.format("The value of " + "the float variable is " +
+                "%f, while the value of the " + "integer variable is %d, " +
+                "and the string is %s", floatVar, intVar, stringVar);
+                */
+
 
     }
 }
+
+//import java.text.DecimalFormat;
+// DecimalFormat df = new DecimalFormat("###.###");
+//System.out.println(df.format(PI));
