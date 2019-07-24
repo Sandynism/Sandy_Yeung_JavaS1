@@ -55,8 +55,13 @@ public class CommandLineGram {
         // Have you ever built your own computer?
         System.out.println("Have you ever built your own computer?");
         String comBuilder = scanner.nextLine();
-//        String output=(comBuilder="yes") ? "Yes, I have built my own computer." : "No, I have not built my own computer.";
-//        System.out.println(output);
+//
+        switch(comBuilder) {
+            case "yes":
+                System.out.println("Yes, I have built my own computer.");
+            case "no":
+                System.out.println("No, I have not built my own computer");
+        }
 
         // If you could be any superhero, who would it be?
         System.out.println("If you could be any superhero, who would it be?");
