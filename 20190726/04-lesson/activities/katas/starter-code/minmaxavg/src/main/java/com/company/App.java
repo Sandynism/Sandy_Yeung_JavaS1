@@ -53,3 +53,14 @@ public class App {
     }
 
 }
+
+//Minimum value: 1
+//Maximum value: 10
+//Sum: 55
+//Average: 5.5
+
+//Load the project MinMaxAvg.
+//Set breakpoints at Line 15, 47, and 52.
+//Run the program (remember to switch over to the Console pane when debugging because the program will ask you for input).
+//The program will ask you to enter 10 numbers.  Enter 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.
+//Write down all the variables that are visible and their associated values when you hit each breakpoint.
