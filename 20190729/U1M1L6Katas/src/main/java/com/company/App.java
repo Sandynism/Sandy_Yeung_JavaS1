@@ -1,0 +1,149 @@
+package com.company;
+
+
+public class App {
+
+    //Total: Create a method called total which returns the sum of all the values in an array of ints. Your code should work for an array of any size.
+    public static int total(int[] values) {
+        int sum = 0;
+        for (int i = 0; i < values.length; i++) {
+            sum += values[i];
+        }
+        return sum;
+    }
+
+    //Total Odd: Create a method called totalOdd which returns the sum of only the values of the odd numbered indexes in an array of ints. Your code should work for an array of any size.
+    public static int totalOdd(int[] values) {
+        int sum = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (i % 2 != 0) {
+                sum += values[i];
+            }
+        }
+        return sum;
+    }
+
+    //Total Even: Create a method called totalEven the sum of only the values of the even numbered indexes in an array of ints. Your code should work for an array of any size.
+    public static int totalEven(int[] values) {
+        int sum = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (i % 2 == 0) {
+                sum += values[i];
+            }
+        }
+        return sum;
+    }
+
+    //2nd Largest Number: Create a method called secondLargestNumber which returns the second largest number in an array of ints. Your code should work for an array of any size. Assume your input array will always have a length of at least 2.
+    public static int secondLargestNumber(int[] values) {
+        int largestNum = Integer.MIN_VALUE;
+        int secondLargest = Integer.MIN_VALUE;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] > largestNum) {
+                secondLargest = largestNum;
+                largestNum = values[i];
+            } else if ((largestNum > values[i]) && (values[i] >= secondLargest)) {
+                secondLargest = values[i];
+            }
+        }
+        return secondLargest;
+    }
+    //Version with Arrays.sort
+//    public static int secondLargestNumber(int[] values) {
+//      Arrays.sort(values);
+//
+//      return values[values.length - 2];
+//   }
+
+    //Swap First and Last: Create a method called swapFirstAndLast which takes in an array of strings, swaps the first and last elements, and returns the array. Your code should work for an array of any size.
+    public static String[] swapFirstAndLast(String[] wordsList) {
+        String first;
+        first = wordsList[0];
+        wordsList[0] = wordsList[wordsList.length - 1];
+        wordsList[wordsList.length - 1] = first;
+        return wordsList;
+    }
+
+    //Reverse: Create a method called reverse which takes in an array of ints and returns a new array with the array reversed. Your code should work for an array of any size.
+    public static int[] reverse(int[] array) {
+        int[] newArray = new int[array.length];
+
+        for (int i = 0; i < array.length; i++) {
+            newArray[i] = array[array.length - 1 - i];
+        }
+        return newArray;
+    }
+
+    //Concatenate String: Create a method called concatenateString which takes in an array of strings and returns a String which consists of the concatenation of all elements in the array. Your code should work for an array of any size.
+    public static String concatenateString(String[] array) {
+        //String newString = Arrays.toString(arrays);
+        String delimiter = "";
+        String concatenatedString = String.join(delimiter, array);
+        return concatenatedString;
+    }
+
+    //Every 3rd: Create a method called everyThird which takes in an array of ints and returns an array which consists of every third element. Your code should work for an array of any size. If there are fewer than three elements in the array, return null.
+    public static int[] everyThird(int[] array) {
+        if(array.length < 3) {
+            return null;
+        }
+
+        int newArrayLength = array.length / 3;
+        int[] newArray = new int[newArrayLength];
+
+        int counter = 0;
+        for(int i = 0; i < array.length; i++) {
+            if ((i+1) % 3 == 0) {
+                newArray[counter] = array[i];
+                counter++;
+            }
+        }
+        return newArray;
+    }
+
+    //Less Than 5: Create a method called lessThanFive which takes in an array of ints, finds the elements which are less than five, and returns an array containing those elements. Your code should work for an array of any size. If there are no elements less than five, return null.
+    public static int[] lessThanFive(int[] array) {
+        int counter = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] < 5) {
+                counter++;
+            }
+        }
+
+        if (counter == 0) {
+            return null;
+        }
+
+        int[] newArray = new int[counter];
+        counter = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] < 5) {
+                newArray[counter] = array[i];
+                counter++;
+            }
+        }
+
+        return newArray;
+    }
+
+
+    public static void main(String[] args) {
+
+        int[] testArray = {1, 2, 3, 4, 5,6};
+        String[] wordsTestArray = {"bird", "cat", "dog", "fish"};
+
+       System.out.println(total(testArray));
+       System.out.println(totalOdd(testArray));
+       System.out.println(totalEven(testArray));
+       System.out.println(secondLargestNumber(testArray));
+       System.out.println(swapFirstAndLast(wordsTestArray));
+       System.out.println(reverse(testArray));
+       System.out.println(concatenateString(wordsTestArray));
+       System.out.println(everyThird(testArray));
+       System.out.println(lessThanFive(testArray));
+    }
+}
+
+
