@@ -6,8 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="sandyYeungU1M2L1PBD" />
-        <module name="SandyYeungU1M2L1PBD" />
+        <module name="U1M2L5PBDSandyYeung" />
       </profile>
     </annotationProcessing>
   </component>

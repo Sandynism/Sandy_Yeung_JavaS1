@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eb82e934-b7ba-4444-9362-03de1391f070" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SandyYeungU1M2L1PBD.iml" beforeDir="false" />
-    </list>
+    <list default="true" id="99fb3344-4e8d-4804-85bb-e6976ed63772" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,9 +15,6 @@
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../.." />
-  </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -29,11 +22,8 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectId" id="1OhBLmALIoHJhS6VZquaiB69LxO" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1Omc2bVgqSFS9JNE5dGfG4x3QfJ" />
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -51,10 +41,10 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.HiLo">
-    <configuration name="CounterNumberGuessing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.CounterNumberGuessing" />
-      <module name="SandyYeungU1M2L1PBD" />
+  <component name="RunManager" selected="Application.ThreeCardMonte">
+    <configuration name="AddingValuesInALoop" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.AddingValuesInALoop" />
+      <module name="U1M2L5PBDSandyYeung" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.*" />
@@ -65,9 +55,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Dice" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.Dice" />
-      <module name="SandyYeungU1M2L1PBD" />
+    <configuration name="RightTriangleChecker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.RightTriangleChecker" />
+      <module name="U1M2L5PBDSandyYeung" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.*" />
@@ -78,9 +68,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FortuneCookie" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.FortuneCookie" />
-      <module name="SandyYeungU1M2L1PBD" />
+    <configuration name="SafeSquareRoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.SafeSquareRoot" />
+      <module name="U1M2L5PBDSandyYeung" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.*" />
@@ -91,9 +81,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HiLo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.HiLo" />
-      <module name="SandyYeungU1M2L1PBD" />
+    <configuration name="ShorterDoubleDice" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.ShorterDoubleDice" />
+      <module name="U1M2L5PBDSandyYeung" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.*" />
@@ -104,9 +94,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KeepGuessing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.KeepGuessing" />
-      <module name="SandyYeungU1M2L1PBD" />
+    <configuration name="ThreeCardMonte" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.ThreeCardMonte" />
+      <module name="U1M2L5PBDSandyYeung" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.company.*" />
@@ -119,11 +109,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HiLo" />
-        <item itemvalue="Application.CounterNumberGuessing" />
-        <item itemvalue="Application.KeepGuessing" />
-        <item itemvalue="Application.Dice" />
-        <item itemvalue="Application.FortuneCookie" />
+        <item itemvalue="Application.ThreeCardMonte" />
+        <item itemvalue="Application.RightTriangleChecker" />
+        <item itemvalue="Application.SafeSquareRoot" />
+        <item itemvalue="Application.ShorterDoubleDice" />
+        <item itemvalue="Application.AddingValuesInALoop" />
       </list>
     </recent_temporary>
   </component>
@@ -132,25 +122,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="eb82e934-b7ba-4444-9362-03de1391f070" name="Default Changelist" comment="" />
-      <created>1564419894807</created>
+      <changelist id="99fb3344-4e8d-4804-85bb-e6976ed63772" name="Default Changelist" comment="" />
+      <created>1564586006582</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1564419894807</updated>
+      <updated>1564586006582</updated>
     </task>
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
