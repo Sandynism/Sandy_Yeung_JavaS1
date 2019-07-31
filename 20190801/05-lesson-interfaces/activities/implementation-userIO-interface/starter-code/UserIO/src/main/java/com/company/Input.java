@@ -38,10 +38,8 @@ public class Input implements UserIO {
 
     public static void main(String[] args) {
 
-
-
-//        The methods in your Input class must contain the logic to read the value in, convert it to the appropriate type,
-//         and return it to the user. A main method has been provided, which utilizes this class in the Application class.
-
     }
 }
+
+//       The methods in your Input class must contain the logic to read the value in, convert it to the appropriate type,
+//         and return it to the user. A main method has been provided, which utilizes this class in the Application class.

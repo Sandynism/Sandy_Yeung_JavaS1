@@ -53,6 +53,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BetterInput" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.BetterInput" />
+      <module name="UserIO" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.company.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Input" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.company.Input" />
       <module name="UserIO" />
@@ -69,6 +82,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Application" />
+        <item itemvalue="Application.BetterInput" />
         <item itemvalue="Application.Input" />
       </list>
     </recent_temporary>
