@@ -1,8 +1,44 @@
 package com.company;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Nim {
+
+    //Bonus #3
+//    public static String singlePile(int num) {
+//        String stars = "";
+//        for (int i = 0; i < num; i++) {
+//            stars += "*";
+//        }
+//        return stars;
+//    }
+
+//    public static void groupPileDisplay(int numA, int numB, int numC) {
+////        System.out.printf("A: " + singlePile(numA) + "%n");
+////        System.out.printf("B: " + singlePile(numB) + "%n");
+////        System.out.printf("C: " + singlePile(numC) + "%n");
+////    }
+
+    //Bonus 4
+    public static void groupPileDisplay(int numA, int numB, int numC) {
+        int[] arr = {numA, numB, numC};
+        Arrays.sort(arr);
+        int max = arr[arr.length - 1];
+
+        System.out.printf(" A   B   C%n");
+
+        for (int i = max; i > 0; i--) {
+            String a = numA >= i ? "*" : " ";
+            String b = numB >= i ? "*" : " ";
+            String c = numC >= i ? "*" : " ";
+
+            System.out.printf(" %s | %s | %s%n", a, b, c);
+        }
+
+        System.out.printf(" %d   %d   %d%n", numA, numB, numC);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int pileA = 3;
@@ -13,7 +49,8 @@ public class Nim {
         int rounds = 0;
         String player1;
         String player2;
-        String currentPlayer= "";
+        String currentPlayer = "";
+        String otherPlayer = "";
 
         System.out.printf("Welcome to Nim, aka Empty the Piles.%n");
         System.out.printf("Each pile will contain stickers.%n");
@@ -22,36 +59,66 @@ public class Nim {
         System.out.printf("Player 2, please enter your name: %n");
         player2 = scanner.nextLine();
 
-        while(pileA>0 || pileB>0 || pileC>0) {
-            if(rounds%2 ==0) {
-                currentPlayer= player1;
-            } else if(rounds%2 >0) {
-                currentPlayer= player2;
+        while (pileA > 0 || pileB > 0 || pileC > 0) {
+            if (rounds % 2 == 0) {
+                currentPlayer = player1;
+                otherPlayer = player2;
+            } else if (rounds % 2 > 0) {
+                currentPlayer = player2;
+                otherPlayer = player1;
             }
-            System.out.printf("A: %d ### B: %d ### C: %d%n", pileA, pileB, pileC);
-            System.out.printf("%s, Choose a pile: %n", currentPlayer);
-            userPilePick = scanner.nextLine();
-            System.out.printf("How many do you want to remove?%n");
-            userRemoveCount = Integer.parseInt(scanner.nextLine());
+
             rounds++;
 
-            if(userPilePick.equalsIgnoreCase("A")) {
-                pileA = pileA - userRemoveCount;
-            }
-            if(userPilePick.equalsIgnoreCase("B")) {
-                pileB = pileB - userRemoveCount;
-            }
-            if(userPilePick.equalsIgnoreCase("C")) {
-                pileC = pileC - userRemoveCount;
-            }
-            if(pileA <=0 && pileB <=0 && pileC <=0) {
-                if(currentPlayer == player1) {
-                    currentPlayer = player2;
-                } else {
-                    currentPlayer = player1;
+            while (true) {
+                groupPileDisplay(pileA, pileB, pileC);
+
+                System.out.printf("%s, Choose a pile: %n", currentPlayer);
+                userPilePick = scanner.nextLine();
+
+                if (!userPilePick.equalsIgnoreCase("A") && !userPilePick.equalsIgnoreCase("B") && !userPilePick.equalsIgnoreCase("C")) {
+                    System.out.printf("---That is not a valid choice, please select again!---%n");
+                    continue;
                 }
-                System.out.printf("A: %d  B: %d  C: %d%n", pileA, pileB, pileC);
-                System.out.printf("You got all the stickers! Awesome job but %s wins because there are no counters left!", currentPlayer);
+
+                if (userPilePick.equalsIgnoreCase("A") && pileA == 0) {
+                    System.out.printf("---There isn't anything left in Pile %s, please choose another!---%n", userPilePick.toUpperCase());
+                    continue;
+                } else if (userPilePick.equalsIgnoreCase("B") && pileB == 0) {
+                    System.out.printf("---There isn't anything left in Pile %s, please choose another!---%n", userPilePick.toUpperCase());
+                    continue;
+                } else if (userPilePick.equalsIgnoreCase("C") && pileC == 0) {
+                    System.out.printf("---There isn't anything left in Pile %s, please choose another!---%n", userPilePick.toUpperCase());
+                    continue;
+                }
+
+                System.out.printf("How many do you want to remove?%n");
+                userRemoveCount = Integer.parseInt(scanner.nextLine());
+
+                if (userPilePick.equalsIgnoreCase("A") && userRemoveCount <= pileA) {
+                    pileA = pileA - userRemoveCount;
+                    break;
+                } else if (userPilePick.equalsIgnoreCase("B") && userRemoveCount <= pileB) {
+                    pileB = pileB - userRemoveCount;
+                    break;
+                } else if (userPilePick.equalsIgnoreCase("C") && userRemoveCount <= pileC) {
+                    pileC = pileC - userRemoveCount;
+                    break;
+                } else {
+                    System.out.printf("---There aren't %d left in Pile %s!---%n", userRemoveCount, userPilePick.toUpperCase());
+                }
+            }
+
+            if (pileA + pileB + pileC == 1) {
+                groupPileDisplay(pileA, pileB, pileC);
+                System.out.printf("There is only one left, %s wins by default!%n", currentPlayer);
+                break;
+            }
+
+            if (pileA <= 0 && pileB <= 0 && pileC <= 0) {
+                groupPileDisplay(pileA, pileB, pileC);
+                System.out.printf("You got all the stickers! Awesome job but %s wins because there are no counters left!%n", otherPlayer);
+                break;
             }
         }
     }
