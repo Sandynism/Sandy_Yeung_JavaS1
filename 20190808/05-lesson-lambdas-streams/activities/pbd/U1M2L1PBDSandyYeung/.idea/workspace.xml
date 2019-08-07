@@ -38,7 +38,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ArrayListWhereIsIt">
+  <component name="RunManager" selected="Application.BasicArrays1">
     <configuration name="ArrayListThereOrNot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.company.ArrayListThereOrNot" />
       <module name="U1M2L1PBDSandyYeung" />
@@ -65,8 +65,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BasicArrays3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.BasicArrays3" />
+    <configuration name="BasicArrays1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.BasicArrays1" />
       <module name="U1M2L1PBDSandyYeung" />
       <extension name="coverage">
         <pattern>
@@ -106,11 +106,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BasicArrays1" />
         <item itemvalue="Application.ArrayListWhereIsIt" />
         <item itemvalue="Application.ArrayListThereOrNot" />
         <item itemvalue="Application.FindingValueArrayList" />
         <item itemvalue="Application.CopyingArrayLists" />
-        <item itemvalue="Application.BasicArrays3" />
       </list>
     </recent_temporary>
   </component>

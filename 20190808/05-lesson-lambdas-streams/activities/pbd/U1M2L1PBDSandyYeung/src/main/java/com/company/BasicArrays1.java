@@ -6,27 +6,30 @@ public class BasicArrays1 {
     public static void main(String[] args) {
         ArrayList arrayList = new ArrayList(10);
 
-        arrayList.add(0);
-        arrayList.add(1);
-        arrayList.add(2);
-        arrayList.add(3);
-        arrayList.add(4);
-        arrayList.add(5);
-        arrayList.add(6);
-        arrayList.add(7);
-        arrayList.add(8);
-        arrayList.add(9);
+        arrayList.add(-113);
+        arrayList.add(-113);
+        arrayList.add(-113);
+        arrayList.add(-113);
+        arrayList.add(-113);
+        arrayList.add(-113);
+        arrayList.add(-113);
+        arrayList.add(-113);
+        arrayList.add(-113);
+        arrayList.add(-113);
+
+        System.out.println(arrayList);
 
         int size = arrayList.size();
+        int count = -1;
 
         for(int i = 0; i < size; i++) {
-            System.out.printf("Slot %d contains a -113%n", i);
+            count++;
+            System.out.printf("Slot %d contains a %d%n", count, arrayList.get(i));
         }
     }
 }
 
-//	for(int i=0; i<a.length; i++){
-//        System.out.println("Slot "+i+" contains a -113");
+
 //Basic ArrayLists 1
 //Create an ArrayList that can hold Integers. Add ten copies of the number -113 to the ArrayList. Then display the contents of the ArrayList on the screen.
 //
