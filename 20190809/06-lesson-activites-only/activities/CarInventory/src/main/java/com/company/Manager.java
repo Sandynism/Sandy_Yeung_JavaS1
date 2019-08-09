@@ -12,13 +12,51 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Manager {
+    PrintWriter writer = null;
     Scanner scanner = new Scanner(System.in);
 
     List<Car> carList = new ArrayList<>(Arrays.asList());
-//    HashMap<Integer, ArrayList<Car> carList = new HashMap<Integer, ArrayList<Car>();
 
     int key = 0;
     int index = 0;
+
+    public void setReader() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            carList = mapper.readValue(new File("inventory.json"), new TypeReference<List<Car>>() {
+            });
+
+            carList.stream().forEach((car) -> {
+                key++;
+                index = key;
+                System.out.println("+===========================================+");
+                System.out.printf("[" + index + "]" + " " + car.getYear() + " " + car.getMake() + " " + car.getModel() + "%n");
+                System.out.printf("Color:%s -- Mileage:%d%n", car.getColor(), car.getMileage());
+            });
+        } catch (IOException e) {
+            System.out.println("ERROR: Problem encountered reading JSON file - " + e.getMessage());
+        }
+    }
+
+    public void setWriter() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String cars = mapper.writeValueAsString(carList);
+
+            writer = new PrintWriter(new FileWriter("inventory.json"));
+            writer.println(cars);
+
+        } catch (JsonProcessingException e) {
+            System.out.println("ERROR: Trouble converting object to JSON string: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("ERROR: Could not write to file: " + e.getMessage());
+        } finally {
+            if (writer != null) {
+                writer.flush();
+                writer.close();
+            }
+        }
+    }
 
     public void mainMenu() {
         System.out.println("+=====================================================================+");
@@ -49,27 +87,14 @@ public class Manager {
     }
 
     public void viewAll() {
-        carList.stream().forEach((car) -> {
-            key++;
-            index = key;
-            System.out.println("+===========================================+");
-            System.out.printf("[" + index + "]" + " " + car.getYear() + " " + car.getMake() + " " + car.getModel() + "%n");
-            System.out.printf("Color:%s -- Mileage:%d%n", car.getColor(), car.getMileage());
-//            index++;
-        });
-        key=0;
+        setReader();
+        key = 0;
         mainMenu();
     }
 
     public void listAllForRemoval() {
-        carList.stream().forEach(car -> {
-            key++;
-            index = key;
-            System.out.println("+===========================================+");
-            System.out.printf("[" + index + "]" + " " + car.getYear() + " " + car.getMake() + " " + car.getModel() + "%n");
-            System.out.printf("Color:%s -- Mileage:%d%n", car.getColor(), car.getMileage());
-        });
-        key=0;
+        setReader();
+        key = 0;
     }
 
 
@@ -93,39 +118,22 @@ public class Manager {
         car.setMileage(mileage);
 
         carList.add(car);
-//        viewAll();
+        setWriter();
         System.out.printf("A %d %s %s with %d miles in the color %s has been added.%n", year, make, model, mileage, color);
         mainMenu();
     }
 
     public void removeVehicle() {
-//        viewAll();
         listAllForRemoval();
         System.out.println("+===========================================+");
         System.out.printf("Please input the number of the vehicle you wish to remove.%n");
-        int carNum = Integer.parseInt(scanner.nextLine())-1;
+        int carNum = Integer.parseInt(scanner.nextLine()) - 1;
 
-        Iterator iterator = carList.iterator();
-        int count = 0;
-
-        while(iterator.hasNext()) {
-            iterator.next();
-                if(count == carNum) {
-                    iterator.remove();
-                    System.out.printf("Removed car %d%n", carNum+1);
-                    break;
-                }
-            count++;
-        }
-//        viewAll();
-        listAllForRemoval();
+        carList.remove(carNum);
+        System.out.printf("Car %d has been removed.%n", carNum + 1);
+        setWriter();
         mainMenu();
     }
-
-//    public void removeVehicle(Map<String, String> mapCars) {
-//        for(Map.Entry<String, String> entry: mapCars.entrySet())
-//            System.out.println(entry.getKey() + ": " + entry.getValue());
-//    }
 
 
     public void filterSearch() {
