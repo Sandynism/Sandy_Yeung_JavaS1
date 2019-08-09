@@ -137,65 +137,111 @@ public class Manager {
 
 
     public void filterSearch() {
+        List<Car> filtered = new ArrayList<>();
         System.out.printf("Search by: [1]Make [2]Model [3]Year [4]Color [5]Mileage %n");
         int userPick = Integer.parseInt(scanner.nextLine());
         switch (userPick) {
             case 1:
                 System.out.printf("Enter a make: %n");
                 String userMake = scanner.nextLine();
-                System.out.printf("+---------------Filtered by %s---------------+%n", userMake.toUpperCase());
-                carList.stream().filter(c -> c.getMake().equalsIgnoreCase(userMake)).forEach(c -> {
-                    System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
-                    System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
-                });
+                filtered = carList.stream().filter(c -> c.getMake().equalsIgnoreCase(userMake)).collect(Collectors.toList());
+                if (filtered.size() == 0) {
+                    System.out.printf("There are no cars with the make of %s.%n", userMake);
+                } else {
+                    filtered.forEach(c -> {
+                        System.out.printf("+---------------Filtered by %s---------------+%n", userMake.toUpperCase());
+                        System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
+                        System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
+                    });
+                }
                 break;
             case 2:
                 System.out.printf("Enter a model: %n");
                 String userModel = scanner.nextLine();
-                System.out.printf("+---------------Filtered by %s---------------+%n", userModel.toUpperCase());
-                carList.stream().filter(c -> c.getModel().equalsIgnoreCase(userModel)).forEach(c -> {
-                    System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
-                    System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
-                });
+                filtered = carList.stream().filter(c -> c.getModel().equalsIgnoreCase(userModel)).collect(Collectors.toList());
+                if (filtered.size() == 0) {
+                    System.out.printf("There are no cars with the model %s.%n", userModel);
+                } else {
+                    filtered.forEach(c -> {
+                        System.out.printf("+---------------Filtered by %s---------------+%n", userModel.toUpperCase());
+                        System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
+                        System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
+                    });
+                }
                 break;
             case 3:
-                System.out.printf("Enter a year: %n");
-                int userYear = Integer.parseInt(scanner.nextLine());
-                System.out.printf("+---------------Filtered by %d---------------+%n", userYear);
-                carList.stream().filter(c -> c.getYear() == userYear).forEach(c -> {
-                    System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
-                    System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
-                });
+                while (true) {
+                    try {
+                        System.out.printf("Enter a year: %n");
+                        int userYear = Integer.parseInt(scanner.nextLine());
+                        filtered = carList.stream().filter(c -> c.getYear() == userYear).collect(Collectors.toList());
+                        if (filtered.size() == 0) {
+                            System.out.printf("There are no cars matching year %d.%n", userYear);
+                        } else {
+                            filtered.forEach(c -> {
+                                System.out.printf("+---------------Filtered by %d---------------+%n", userYear);
+                                System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
+                                System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
+                            });
+                        }
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a year.");
+                    }
+                }
                 break;
             case 4:
                 System.out.printf("Enter a color: %n");
                 String userColor = scanner.nextLine();
-                System.out.printf("+---------------Filtered by %s---------------+%n", userColor.toUpperCase());
-                carList.stream().filter(c -> c.getColor().equalsIgnoreCase(userColor)).forEach(c -> {
-                    System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
-                    System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
-                });
-                break;
-            case 5:
-                System.out.printf("Enter a mileage: %n");
-                int userMileage = Integer.parseInt(scanner.nextLine());
-                System.out.printf("Enter a condition: [L]ess than or [M]ore than %n");
-                String userCondition = scanner.nextLine();
-                if (userCondition.equalsIgnoreCase("L")) {
-                    System.out.printf("+---------------Filtered by %d---------------+%n", userMileage);
-                    carList.stream().filter(c -> c.getMileage() < userMileage).forEach(c -> {
+                filtered = carList.stream().filter(c -> c.getColor().equalsIgnoreCase(userColor)).collect(Collectors.toList());
+                if (filtered.size() == 0) {
+                    System.out.printf("There are no cars with %s color.%n", userColor);
+                } else {
+                    filtered.forEach(c -> {
+                        System.out.printf("+---------------Filtered by %s---------------+%n", userColor.toUpperCase());
                         System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
                         System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
-                        System.out.printf("----------------------------------%n");
                     });
                 }
-                if (userCondition.equalsIgnoreCase("M")) {
-                    System.out.printf("+---------------Filtered by %d---------------+%n", userMileage);
-                    carList.stream().filter(c -> c.getMileage() > userMileage).forEach(c -> {
-                        System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
-                        System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
-                        System.out.printf("----------------------------------%n");
-                    });
+                break;
+            case 5:
+                while (true) {
+                    try {
+                        System.out.printf("Enter a mileage: %n");
+                        int userMileage = Integer.parseInt(scanner.nextLine());
+                        System.out.printf("Enter a condition: [L]ess than or [M]ore than %n");
+                        String userCondition = scanner.nextLine();
+
+                        if (userCondition.equalsIgnoreCase("L")) {
+                            filtered = carList.stream().filter(c -> c.getMileage() < userMileage).collect(Collectors.toList());
+                            if (filtered.size() == 0) {
+                                System.out.printf("There are no cars less than %d.%n", userMileage);
+                            } else {
+                                System.out.printf("+---------------Filtered by %d miles---------------+%n", userMileage);
+                                filtered.forEach(c -> {
+                                    System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
+                                    System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
+                                    System.out.printf("----------------------------------%n");
+                                });
+                            }
+                        }
+                        if (userCondition.equalsIgnoreCase("M")) {
+                            filtered = carList.stream().filter(c -> c.getMileage() > userMileage).collect(Collectors.toList());
+                            if (filtered.size() == 0) {
+                                System.out.printf("There are no cars more than %d.%n", userMileage);
+                            } else {
+                                System.out.printf("+---------------Filtered by %d miles---------------+%n", userMileage);
+                                filtered.forEach(c -> {
+                                    System.out.printf(c.getYear() + " " + c.getMake() + " " + c.getModel() + "%n");
+                                    System.out.printf("Color:%s -- Mileage:%d%n", c.getColor(), c.getMileage());
+                                    System.out.printf("----------------------------------%n");
+                                });
+                            }
+                        }
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a make.");
+                    }
                 }
                 break;
         }
