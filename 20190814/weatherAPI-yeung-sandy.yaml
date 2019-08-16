@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: Weather API
+  description: A simple service that tells you the weather.
+  version: 0.0.1
+servers: 
+  - url: http://localhost:8080
+    description: local development server
+paths:
+  /temp/{zipcode}:
+    get:
+      summary: Retrieves a zipcode.
+      parameters: 
+        - name: zipcode
+          in: path
+          required: true
+          description: ID of the zipcode you would like to retrieve.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: the temperature of the zipcode you asked for.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Weather'
+  /conditions/{zipcode}:
+    get:
+      summary: Retrieves a zipcode.
+      parameters: 
+        - name: zipcode
+          in: path
+          required: true
+          description: ID of the zipcode you would like to retrieve.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: the conditions of the zipcode you asked for.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Weather'
+components:
+  schemas:
+  
+    Temperature:
+      type: object
+      properties:
+        fahrenheit:
+          type: number
+        celsius:
+          type: number
+          
+    Conditions:
+      type: object
+      properties:
+        fahrenheit:
+          type: number
+        celsius:
+          type: number        
+        windSpeed:
+          type: number
+        windDirection:
+          type: string
+        skies:
+          type: string
+        precipitation:
+          type: string
+
+                
+      

@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: City and States
+  description: A simple service that gives you information about cities.
+  version: 0.0.1
+servers: 
+  - url: http://localhost:8080
+    description: local development server
+paths:
+  /city:
+    post:
+      summary: Creates a city.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/City'
+      responses:
+        '201':
+          description: the city object you created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+    get:
+      summary: Retrieves all cities.
+      responses:
+        '200':
+          description: all of the cities.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+  /city/{name}:
+    delete:
+      summary: Deletes a city.
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: name of the city you would like to delete.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No content.
+    get:
+      summary: Retrieves city by name.
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: name of the city.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: information about the city you requested.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+    
+components:
+  schemas:
+    City:
+      properties:
+        name:
+          type: string
+        state:
+          type: string
+        population:
+          type: number
+        isStateCapital:
+          type: boolean
+      required: 
+        - name
+        - state
+        - population
+        - isStateCapital
+        
+        
+                
+      
