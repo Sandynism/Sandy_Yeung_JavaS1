@@ -5,10 +5,10 @@ import javax.validation.constraints.*;
 public class Quote {
     @NotEmpty
     @Size(min = 2, message = "Author name must be more than 2 characters.")
-    public String author;
+    private String author;
     @NotEmpty
     @Size(min = 2, message = "Quote must be more than 2 characters.")
-    public String quote;
+    private String quote;
 
 //    public Quote(String author, String quote){
 //        this.author = author;

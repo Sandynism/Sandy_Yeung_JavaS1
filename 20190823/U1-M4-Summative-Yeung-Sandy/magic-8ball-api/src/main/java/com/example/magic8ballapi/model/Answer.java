@@ -4,9 +4,9 @@ import javax.validation.constraints.NotEmpty;
 
 public class Answer {
 //    @NotEmpty(message="Must not be empty.")
-    public String question;
+    private String question;
 //    @NotEmpty(message="Must not be empty.")
-    public String answer;
+    private String answer;
 
     public String getQuestion() {
         return question;

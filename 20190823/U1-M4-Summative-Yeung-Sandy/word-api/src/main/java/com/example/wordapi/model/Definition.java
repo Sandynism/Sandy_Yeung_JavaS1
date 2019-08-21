@@ -5,10 +5,10 @@ import javax.validation.constraints.*;
 public class Definition {
     @NotEmpty(message="Must not be empty.")
     @Size(min=1, message="Word must be more than 1 character.")
-    public String word;
+    private String word;
     @NotEmpty(message="Must not be empty.")
     @Size(min=5, message="Definition must be more than 5 characters.")
-    public String definition;
+    private String definition;
 
     public Definition() {
     }
