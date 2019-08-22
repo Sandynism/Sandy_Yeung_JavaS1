@@ -29,6 +29,11 @@ public class CoffeeInventoryDaoTest {
 
         coffeeList.stream()
                 .forEach(coffee -> dao.deleteCoffee(coffee.getCoffeeId()));
+
+        List<Roaster> roasterList = dao2.getAllRoasters();
+
+        roasterList.stream()
+                .forEach(roaster -> dao2.deleteRoaster(roaster.getRoasterId()));
     }
 
     @Test
