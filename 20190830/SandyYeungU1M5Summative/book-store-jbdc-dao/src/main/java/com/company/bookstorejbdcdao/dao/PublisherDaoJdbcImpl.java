@@ -2,6 +2,7 @@ package com.company.bookstorejbdcdao.dao;
 
 import com.company.bookstorejbdcdao.model.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +19,7 @@ public class PublisherDaoJdbcImpl implements PublisherDao {
             "select * from publisher";
 
     private static final String INSERT_PUBLISHER_SQL =
-            "insert into publisher (name, street, city, state, postal_code, phone, email)";
+            "insert into publisher (name, street, city, state, postal_code, phone, email) values (?, ?, ?, ?, ?, ?, ?)";
 
     private static final String UPDATE_PUBLISHER_SQL =
             "update publisher set name = ?, street = ?, city = ?, state = ?, postal_code = ?, phone = ?, email = ? where publisher_id = ?";
@@ -50,26 +51,33 @@ public class PublisherDaoJdbcImpl implements PublisherDao {
 
     @Override
     public Publisher getPublisher(int publisherId) {
-        return null;
+        try {
+            return jdbcTemplate.queryForObject(SELECT_PUBLISHER_SQL, this::mapRowToPublisher, publisherId);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public List<Publisher> getAllPublishers() {
-        return null;
+        return jdbcTemplate.query(SELECT_ALL_PUBLISHERS_SQL, this::mapRowToPublisher);
     }
 
     @Override
     public Publisher addPublisher(Publisher publisher) {
-        return null;
+        jdbcTemplate.update(INSERT_PUBLISHER_SQL, publisher.getName(), publisher.getStreet(), publisher.getCity(), publisher.getState(), publisher.getPostalCode(), publisher.getPhone(), publisher.getEmail());
+        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+        publisher.setPublisherId(id);
+        return publisher;
     }
 
     @Override
     public void updatePublisher(Publisher publisher) {
-
+        jdbcTemplate.update(UPDATE_PUBLISHER_SQL, publisher.getName(), publisher.getStreet(), publisher.getCity(), publisher.getState(), publisher.getPostalCode(), publisher.getPhone(), publisher.getEmail(), publisher.getPublisherId());
     }
 
     @Override
     public void deletePublisher(int publisherId) {
-
+        jdbcTemplate.update(DELETE_PUBLISHER_SQL, publisherId);
     }
 }

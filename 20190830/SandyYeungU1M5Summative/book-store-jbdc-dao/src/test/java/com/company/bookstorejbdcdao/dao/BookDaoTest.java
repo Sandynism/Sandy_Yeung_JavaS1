@@ -66,11 +66,11 @@ public class BookDaoTest {
 
         Book book = new Book();
         book.setIsbn("045148942X");
-        book.setPublishDate(LocalDate.of(2019, Month.AUGUST, 6));
+        book.setPublishDate(LocalDate.of(2019, 8, 6));
         book.setAuthorId(author.getAuthorId());
         book.setTitle("Life and other Conveniences");
         book.setPublisherId(publisher.getPublisherId());
-        book.setPrice(BigDecimal.valueOf(20.00));
+        book.setPrice(new BigDecimal("20.00"));
         book = BookDao.addBook(book);
 
         Book book2 = BookDao.getBook(book.getBookId());

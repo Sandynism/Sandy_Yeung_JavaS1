@@ -21,7 +21,7 @@ public class BookDaoJdbcImpl implements BookDao {
             "select * from book";
 
     private static final String INSERT_BOOK_SQL =
-            "insert into book (isbn, publish_date, author_id, title, publisher_id, price)";
+            "insert into book (isbn, publish_date, author_id, title, publisher_id, price) values (?, ?, ?, ?, ?, ?)";
 
     private static final String UPDATE_BOOK_SQL =
             "update book set isbn = ?, publish_date = ?, author_id = ?, title = ?, publisher_id = ?, price = ? where book_id = ?";
@@ -78,7 +78,7 @@ public class BookDaoJdbcImpl implements BookDao {
 
     @Override
     public void updateBook(Book book) {
-        jdbcTemplate.update(INSERT_BOOK_SQL, book.getIsbn(), book.getPublishDate(), book.getAuthorId(), book.getTitle(), book.getPublisherId(), book.getPrice(), book.getBookId());
+        jdbcTemplate.update(UPDATE_BOOK_SQL, book.getIsbn(), book.getPublishDate(), book.getAuthorId(), book.getTitle(), book.getPublisherId(), book.getPrice(), book.getBookId());
     }
 
     @Override
