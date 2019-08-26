@@ -31,12 +31,14 @@ public class BookDaoTest {
 
     @Before
     public void setUp() throws Exception {
+        //clear out child class first
         List<Book> bookList = BookDao.getAllBooks();
         bookList.stream().forEach(b -> BookDao.deleteBook(b.getBookId()));
 
         List<Author> authorList = AuthorDao.getAllAuthors();
         authorList.stream().forEach(a -> AuthorDao.deleteAuthor(a.getAuthorId()));
 
+        //clear out parent class last
         List<Publisher> publisherList = PublisherDao.getAllPublishers();
         publisherList.stream().forEach(p -> PublisherDao.deletePublisher(p.getPublisherId()));
     }
