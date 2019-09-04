@@ -91,3 +91,29 @@ invoice.setProcessingFee(new BigDecimal("14.99"));
 invoice.setTotal(new BigDecimal("329.98"));
 
 invoiceDao.addInvoice(invoice);
+
+//processing fee
+ProcessingFee processingFee = new ProcessingFee();
+processingFee.setProductType("consoles");
+processingFee.setFee(new BigDecimal("14.99"));
+
+processingFeeDao.addProcessingFee(processingFee);
+
+processingFee = new ProcessingFee();
+processingFee.setProductType("games");
+processingFee.setFee(new BigDecimal("1.49"));
+
+processingFeeDao.addProcessingFee(processingFee);
+
+//sales tax rate
+SalesTaxRate salesTaxRate = new SalesTaxRate();
+salesTaxRate.setState("NY");
+salesTaxRate.setRate(new BigDecimal("0.06"));
+
+salesTaxRateDao.addSalesTaxRate(salesTaxRate);
+
+salesTaxRate = new SalesTaxRate();
+salesTaxRate.setState("CA");
+salesTaxRate.setRate(new BigDecimal("0.06"));
+
+salesTaxRateDao.addSalesTaxRate(salesTaxRate);

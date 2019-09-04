@@ -9,15 +9,15 @@ public class SalesTaxRate {
 
     @NotEmpty(message = "State must not be empty.")
     @Size(min=2, max=2, message = "State must be in ## format.")
-    private char state;
+    private String state;
     @NotEmpty(message = "Rate must not be empty.")
     private BigDecimal rate;
 
-    public char getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(char state) {
+    public void setState(String state) {
         this.state = state;
     }
 
@@ -34,7 +34,7 @@ public class SalesTaxRate {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SalesTaxRate that = (SalesTaxRate) o;
-        return getState() == that.getState() &&
+        return getState().equals(that.getState()) &&
                 getRate().equals(that.getRate());
     }
 
