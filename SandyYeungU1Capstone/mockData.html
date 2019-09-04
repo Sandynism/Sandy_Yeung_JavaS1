@@ -1,0 +1,93 @@
+//console
+Console console = new Console();
+console.setModel("PS4");
+console.setManufacturer("Sony");
+console.setMemoryAmount("512 MB");
+console.setProcessor("APU");
+console.setPrice(new BigDecimal("299.99"));
+console.setQuantity(8);
+
+consoleDao.addConsole(console);
+
+console = new Console();
+console.setModel("XBOX 360");
+console.setManufacturer("Microsoft");
+console.setMemoryAmount("512 MB");
+console.setProcessor("Triple Core Xenon");
+console.setPrice(new BigDecimal("310.99"));
+console.setQuantity(10);
+
+consoleDao.addConsole(console);
+
+//game
+Game game = new Game();
+game.setTitle("Rayman Raving Rabbids");
+game.setEsrbRating("E");
+game.setDescription("The series focuses on wild rabbit-like creatures known as Rabbids, who like to cause havoc and mischief, speak gibberish and yell.");
+game.setPrice(new BigDecimal("39.99"));
+game.setStudio("Ubisoft Motion Pictures");
+game.setQuantity(25);
+
+gameDao.addGame(game);
+
+game = new Game();
+game.setTitle("Dance Dance Revolution");
+game.setEsrbRating("E");
+game.setDescription("A dance party where you use arrows to match the beats.");
+game.setPrice(new BigDecimal("59.99"));
+game.setStudio("Konami");
+game.setQuantity(15);
+
+gameDao.addGame(game);
+
+//tshirt
+Tshirt tshirt = new Tshirt();
+tshirt.setSize("Medium");
+tshirt.setColor("White");
+tshirt.setDescription("Premium Cotton");
+tshirt.setPrice(new BigDecimal("9.99"));
+tshirt.setQuantity(10);
+
+tshirtDao.addTshirt(tshirt);
+
+tshirt = new Tshirt();
+tshirt.setSize("Small");
+tshirt.setColor("Black");
+tshirt.setDescription("Polyester");
+tshirt.setPrice(new BigDecimal("5.99"));
+tshirt.setQuantity(100);
+
+tshirtDao.addTshirt(tshirt);
+
+//invoice
+Invoice invoice = new Invoice();
+invoice.setName("Sandy Yeung");
+invoice.setStreet("189th St");
+invoice.setCity("Fresh Meadows");
+invoice.setState("NY");
+invoice.setZipcode("11365");
+invoice.setItemType("Games");
+invoice.setUnitPrice(new BigDecimal("29.99"));
+invoice.setQuantity(5);
+invoice.setSubtotal(new BigDecimal("149.95"));
+invoice.setTax(new BigDecimal("0.05"));
+invoice.setProcessingFee(new BigDecimal("1.49"));
+invoice.setTotal(new BigDecimal("158.94"));
+
+invoiceDao.addInvoice(invoice);
+
+invoice = new Invoice();
+invoice.setName("Kenny Hom");
+invoice.setStreet("97th Pl");
+invoice.setCity("Corona");
+invoice.setState("NY");
+invoice.setZipcode("11368");
+invoice.setItemType("Consoles");
+invoice.setUnitPrice(new BigDecimal("299.99"));
+invoice.setQuantity(1);
+invoice.setSubtotal(new BigDecimal("299.99"));
+invoice.setTax(new BigDecimal("0.05"));
+invoice.setProcessingFee(new BigDecimal("14.99"));
+invoice.setTotal(new BigDecimal("329.98"));
+
+invoiceDao.addInvoice(invoice);
