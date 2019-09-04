@@ -1,26 +1,27 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Console {
 
     private int consoleId;
-    @NotNull(message = "Model must not be null.")
+    @NotEmpty(message = "Model must not be empty.")
     @Size(min = 2, max = 50)
     private String model;
     @Size(min = 2, max = 50)
-    @NotNull(message = "Manufacturer must not be null.")
+    @NotEmpty(message = "Manufacturer must not be empty.")
     private String manufacturer;
     @Size(min = 1, max = 20)
     private String memoryAmount;
     @Size(min = 1, max = 20)
     private String processor;
-    @NotNull(message = "Price must not be null.")
+    @NotEmpty(message = "Price must not be empty.")
+    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal price;
-    @NotNull(message = "Quantity must not be null.")
+    @NotEmpty(message = "Quantity must not be empty.")
     private int quantity;
 
     public int getConsoleId() {

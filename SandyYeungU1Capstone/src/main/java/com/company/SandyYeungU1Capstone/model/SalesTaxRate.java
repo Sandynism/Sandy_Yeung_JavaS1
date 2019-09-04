@@ -1,16 +1,16 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class SalesTaxRate {
 
-    @NotNull(message = "State must not be null.")
+    @NotEmpty(message = "State must not be empty.")
     @Size(min=2, max=2, message = "State must be in ## format.")
     private char state;
-    @NotNull(message = "Rate must not be null.")
+    @NotEmpty(message = "Rate must not be empty.")
     private BigDecimal rate;
 
     public char getState() {
@@ -47,3 +47,4 @@ public class SalesTaxRate {
 
 //    state char(2) not null,
 //    rate decimal(3,2) not null
+

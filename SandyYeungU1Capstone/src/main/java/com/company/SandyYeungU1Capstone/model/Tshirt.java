@@ -1,6 +1,6 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -8,18 +8,18 @@ import java.util.Objects;
 public class Tshirt {
 
     private int tshirtId;
-    @NotNull(message = "Size must not be null.")
+    @NotEmpty(message = "Size must not be empty.")
     @Size(min = 1, max = 20)
     private String size;
-    @NotNull(message = "Color must not be null.")
+    @NotEmpty(message = "Color must not be empty.")
     @Size(min = 1, max = 20)
     private String color;
-    @NotNull(message = "Description must not be null.")
+    @NotEmpty(message = "Description must not be empty.")
     @Size(min = 3, max = 255)
     private String description;
-    @NotNull(message = "Price must not be null.")
+    @NotEmpty(message = "Price must not be empty.")
     private BigDecimal price;
-    @NotNull(message = "Quantity must not be null.")
+    @NotEmpty(message = "Quantity must not be empty.")
     private int quantity;
 
     public int getTshirtId() {

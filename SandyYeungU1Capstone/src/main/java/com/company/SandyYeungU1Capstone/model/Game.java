@@ -1,6 +1,8 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -8,18 +10,20 @@ import java.util.Objects;
 public class Game {
 
     private int gameId;
-    @NotNull(message = "Title must not be null.")
+    @NotEmpty(message = "Title must not be empty.")
     @Size(min = 1, max = 50)
     private String title;
-    @NotNull(message = "Esrb rating must not be null.")
+    @NotEmpty(message = "Esrb rating must not be empty.")
     @Size(min = 1, max = 50)
     private String esrbRating;
-    @NotNull(message = "Description must not be null.")
+    @NotEmpty(message = "Description must not be empty.")
     @Size(min = 3, max = 255)
     private String description;
-    @NotNull(message = "Price must not be null.")
+    @NotEmpty(message = "Price must not be empty.")
+    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal price;
-    @NotNull(message = "Studio must not be null.")
+    @NotEmpty(message = "Studio must not be empty.")
     @Size(min = 1, max = 50)
     private String studio;
     private int quantity;

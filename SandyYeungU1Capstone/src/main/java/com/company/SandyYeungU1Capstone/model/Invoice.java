@@ -1,6 +1,6 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -8,37 +8,37 @@ import java.util.Objects;
 public class Invoice {
 
     private int invoiceId;
-    @NotNull(message = "Name must not be null.")
+    @NotEmpty(message = "Name must not be empty.")
     @Size(min = 3, max = 80)
     private String name;
-    @NotNull(message = "Street must not be null.")
+    @NotEmpty(message = "Street must not be empty.")
     @Size(min = 1, max = 30)
     private String street;
-    @NotNull(message = "City must not be null.")
+    @NotEmpty(message = "City must not be empty.")
     @Size(min = 1, max = 30)
     private String city;
-    @NotNull(message = "State must not be null.")
+    @NotEmpty(message = "State must not be empty.")
     @Size(min = 1, max = 30)
     private String state;
-    @NotNull(message = "Zipcode must not be null.")
+    @NotEmpty(message = "Zipcode must not be empty.")
     @Size(min = 5, max = 5)
     private String zipcode;
-    @NotNull(message = "Item type must not be null.")
+    @NotEmpty(message = "Item type must not be empty.")
     @Size(min = 1, max = 20)
     private String itemType;
-    @NotNull(message = "Item ID type must not be null.")
+    @NotEmpty(message = "Item ID type must not be empty.")
     private int itemId;
-    @NotNull(message = "Unit price must not be null.")
+    @NotEmpty(message = "Unit price must not be empty.")
     private BigDecimal unitPrice;
-    @NotNull(message = "Quantity must not be null.")
+    @NotEmpty(message = "Quantity must not be empty.")
     private int quantity;
-    @NotNull(message = "Subtotal must not be null.")
+    @NotEmpty(message = "Subtotal must not be empty.")
     private BigDecimal subtotal;
-    @NotNull(message = "Tax must not be null.")
+    @NotEmpty(message = "Tax must not be empty.")
     private BigDecimal tax;
-    @NotNull(message = "Processing fee must not be null.")
+    @NotEmpty(message = "Processing fee must not be empty.")
     private BigDecimal processingFee;
-    @NotNull(message = "Total must not be null.")
+    @NotEmpty(message = "Total must not be empty.")
     private BigDecimal total;
 
     public int getInvoiceId() {
@@ -181,7 +181,6 @@ public class Invoice {
 
 }
 
-
 //    invoice_id int(11) not null auto_increment primary key,
 //    name varchar(80) not null,
 //    street varchar(30) not null,
@@ -196,3 +195,4 @@ public class Invoice {
 //    tax decimal(5,2) not null,
 //    processing_fee decimal (5,2) not null,
 //    total decimal(5,2) not null
+

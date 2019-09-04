@@ -1,16 +1,16 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 public class ProcessingFee {
 
-    @NotNull(message = "Product type must not be null.")
+    @NotEmpty(message = "Product type must not be empty.")
     @Size(min=1, max=20)
     private String productType;
-    @NotNull(message = "Fee must not be null.")
+    @NotEmpty(message = "Fee must not be empty.")
     private BigDecimal fee;
 
     public String getProductType() {
