@@ -196,3 +196,12 @@ public class Invoice {
 //    processing_fee decimal (5,2) not null,
 //    total decimal(5,2) not null
 
+//User Request Body
+//	       1. Name
+//	       1. Street
+//	       1. City
+//	       1. State
+//	       1. Zip
+//	       1. Item Type
+//	       1. Item ID
+//	       1. Quantity

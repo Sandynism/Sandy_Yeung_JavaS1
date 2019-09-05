@@ -1,7 +1,7 @@
 package com.company.SandyYeungU1Capstone.controller;
 
-import com.company.SandyYeungU1Capstone.dao.GameDao;
-import com.company.SandyYeungU1Capstone.model.Game;
+import com.company.SandyYeungU1Capstone.service.InvoiceServiceLayer;
+import com.company.SandyYeungU1Capstone.viewModel.GameViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,56 +10,58 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/games")
 public class GameController {
-    @Autowired
-    GameDao gameDao;
 
-    @RequestMapping(value = "/games", method = RequestMethod.POST)
+    @Autowired
+    InvoiceServiceLayer invoiceService;
+
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Game createGame(@RequestBody @Valid Game game) {
-        gameDao.addGame(game);
+    public GameViewModel createGame(@RequestBody @Valid GameViewModel game) {
+        invoiceService.saveGame(game);
         return game;
     }
 
-    @RequestMapping(value = "/games", method = RequestMethod.GET)
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Game> getAllGames() {
-        return gameDao.getAllGames();
+    public List<GameViewModel> getAllGames() {
+        return invoiceService.findAllGames();
     }
 
-    @RequestMapping(value = "/games/{gameId}", method = RequestMethod.GET)
+    @GetMapping(value="/{gameId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Game getGame(@PathVariable(name="gameId") int gameId) {
-        return gameDao.getGame(gameId);
+    public GameViewModel getGame(@PathVariable(name="gameId") int gameId) {
+        return invoiceService.findGame(gameId);
     }
 
-    @RequestMapping(value = "/games/{gameId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value="/{gameId}")
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteGame(@PathVariable(name="gameId") int gameId) {
-        gameDao.deleteGame(gameId);
+        invoiceService.deleteGame(gameId);
     }
 
-    @RequestMapping(value = "/games/{gameId}", method = RequestMethod.PUT)
+    @PutMapping(value="/{gameId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateGame(@RequestBody @Valid Game game) {
-        gameDao.updateGame(game);
+    public void updateGame(@RequestBody @Valid GameViewModel game) {
+        invoiceService.updateGame(game);
     }
 
-    @RequestMapping(value = "/games/{esrbRating}", method = RequestMethod.GET)
+    @GetMapping(value="/{esrbRating}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Game> getGamesByEsrbRating(@PathVariable(name="esrbRating") String esrbRating) {
-        return gameDao.getGamesByEsrbRating(esrbRating);
+    public List<GameViewModel> getGamesByEsrbRating(@PathVariable(name="esrbRating") String esrbRating) {
+        return invoiceService.getGamesByEsrbRating(esrbRating);
     }
 
-    @RequestMapping(value = "/games/{title}", method = RequestMethod.GET)
+    @GetMapping("/{title}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Game> getGamesByTitle(@PathVariable(name="title") String title) {
-        return gameDao.getGamesByTitle(title);
+    public List<GameViewModel> getGamesByTitle(@PathVariable(name="title") String title) {
+        return invoiceService.getGamesByTitle(title);
     }
 
-    @RequestMapping(value = "/games/{studio}", method = RequestMethod.GET)
+    @GetMapping("/{studio}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Game> getGamesByStudio(@PathVariable(name="studio") String studio) {
-        return gameDao.getGamesByStudio(studio);
+    public List<GameViewModel> getGamesByStudio(@PathVariable(name="studio") String studio) {
+        return invoiceService.getGamesByStudio(studio);
     }
 }

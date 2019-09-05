@@ -1,7 +1,8 @@
 package com.company.SandyYeungU1Capstone.controller;
 
-import com.company.SandyYeungU1Capstone.dao.TshirtDao;
 import com.company.SandyYeungU1Capstone.model.Tshirt;
+import com.company.SandyYeungU1Capstone.service.InvoiceServiceLayer;
+import com.company.SandyYeungU1Capstone.viewModel.TshirtViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,51 +11,52 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value="/tshirts")
 public class TshirtController {
     @Autowired
-    TshirtDao tshirtDao;
+    InvoiceServiceLayer invoiceService;
 
-    @RequestMapping(value = "/tshirts", method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Tshirt createTshirt(@RequestBody @Valid Tshirt tshirt) {
-        tshirtDao.addTshirt(tshirt);
+    public TshirtViewModel createTshirt(@RequestBody @Valid TshirtViewModel tshirt) {
+        invoiceService.saveTshirt(tshirt);
         return tshirt;
     }
 
-    @RequestMapping(value = "/tshirts", method = RequestMethod.GET)
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Tshirt> getAllTshirts() {
-        return tshirtDao.getAllTshirts();
+    public List<TshirtViewModel> getAllTshirts() {
+        return invoiceService.findAllTshirts();
     }
 
-    @RequestMapping(value = "/tshirts/{tshirtId}", method = RequestMethod.GET)
+    @GetMapping(value ="/{tshirtId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Tshirt getTshirt(@PathVariable(name="tshirtId") int tshirtId) {
-        return tshirtDao.getTshirt(tshirtId);
+    public TshirtViewModel getTshirt(@PathVariable(name="tshirtId") int tshirtId) {
+        return invoiceService.findTshirt(tshirtId);
     }
 
-    @RequestMapping(value = "/tshirts/{tshirtId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{tshirtId}")
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteTshirt(@PathVariable(name="tshirtId") int tshirtId) {
-        tshirtDao.deleteTshirt(tshirtId);
+        invoiceService.deleteTshirt(tshirtId);
     }
 
-    @RequestMapping(value = "/tshirts/{tshirtId}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{tshirtId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateTshirt(@RequestBody @Valid Tshirt tshirt) {
-        tshirtDao.updateTshirt(tshirt);
+    public void updateTshirt(@RequestBody @Valid TshirtViewModel tshirt) {
+        invoiceService.updateTshirt(tshirt);
     }
 
-    @RequestMapping(value = "/tshirts/{color}", method = RequestMethod.GET)
+    @GetMapping(value = "/{color}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Tshirt> getTshirtsByColor(@PathVariable(name="color") String color) {
-        return tshirtDao.getTshirtsByColor(color);
+    public List<TshirtViewModel> getTshirtsByColor(@PathVariable(name="color") String color) {
+        return invoiceService.getTshirtsByColor(color);
     }
 
-    @RequestMapping(value = "/tshirts/{size}", method = RequestMethod.GET)
+    @GetMapping(value = "/{size}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Tshirt> getTshirtsBySize(@PathVariable(name="size") String size) {
-        return tshirtDao.getTshirtsBySize(size);
+    public List<TshirtViewModel> getTshirtsBySize(@PathVariable(name="size") String size) {
+        return invoiceService.getTshirtsBySize(size);
     }
 
 }

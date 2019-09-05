@@ -1,7 +1,8 @@
 package com.company.SandyYeungU1Capstone.controller;
 
-import com.company.SandyYeungU1Capstone.dao.ConsoleDao;
-import com.company.SandyYeungU1Capstone.model.Console;
+import com.company.SandyYeungU1Capstone.exception.NotFoundException;
+import com.company.SandyYeungU1Capstone.service.InvoiceServiceLayer;
+import com.company.SandyYeungU1Capstone.viewModel.ConsoleViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,44 +11,87 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/consoles")
 public class ConsoleController {
     @Autowired
-    ConsoleDao consoleDao;
+    InvoiceServiceLayer invoiceService;
 
-    @RequestMapping(value = "/consoles", method = RequestMethod.POST)
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Console createConsole(@RequestBody @Valid Console console) {
-        consoleDao.addConsole(console);
+    public ConsoleViewModel createConsole(@RequestBody @Valid ConsoleViewModel console) {
+        return invoiceService.saveConsole(console);
+    }
+
+    @GetMapping
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<ConsoleViewModel> getAllConsoles() {
+        return invoiceService.findAllConsoles();
+    }
+
+    @GetMapping("/{consoleId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public ConsoleViewModel getConsole(@PathVariable(name = "consoleId") int consoleId) {
+        ConsoleViewModel console = invoiceService.findConsole(consoleId);
+        if (console == null)
+            throw new NotFoundException("Console could not be retrieved for id " + consoleId);
         return console;
     }
 
-    @RequestMapping(value = "/consoles", method = RequestMethod.GET)
+    @DeleteMapping("/{consoleId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Console> getAllConsoles() {
-        return consoleDao.getAllConsoles();
+    public void deleteConsole(@PathVariable(name = "consoleId") int consoleId) {
+        invoiceService.deleteConsole(consoleId);
     }
 
-    @RequestMapping(value = "/consoles/{consoleId}", method = RequestMethod.GET)
+    @PutMapping("/{consoleId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Console getConsole(@PathVariable(name="consoleId") int consoleId) {
-        return consoleDao.getConsole(consoleId);
+    public void updateConsole(@RequestBody @Valid ConsoleViewModel console) {
+        invoiceService.updateConsole(console);
     }
 
-    @RequestMapping(value = "/consoles/{consoleId}", method = RequestMethod.DELETE)
+    @GetMapping("/{manufacturer}")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteConsole(@PathVariable(name="consoleId") int consoleId) {
-        consoleDao.deleteConsole(consoleId);
-    }
-
-    @RequestMapping(value = "/consoles/{consoleId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void updateConsole(@RequestBody @Valid Console console) {
-        consoleDao.updateConsole(console);
-    }
-
-    @RequestMapping(value = "/consoles/{manufacturer}", method = RequestMethod.GET)
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<Console> getConsolesByManufacturer(@PathVariable(name="manufacturer") String manufacturer) {
-        return consoleDao.getConsolesByManufacturer(manufacturer);
+    public List<ConsoleViewModel> getConsolesByManufacturer(@PathVariable(name = "manufacturer") String manufacturer) {
+        return invoiceService.getConsolesByManufacturer(manufacturer);
     }
 }
+
+
+//@RestController
+//@RequestMapping("/invoice")
+//public class InvoiceInventoryController {
+//
+//    @Autowired
+//    InvoiceInventoryService inventoryService;
+//
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public InvoiceViewModel createInvoice(@RequestBody InvoiceViewModel invoice) {
+//        return inventoryService.saveInvoice(invoice);
+//    }
+//
+//    @GetMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    //As per requirement this method is not needed
+//    public InvoiceViewModel getInvoice(@PathVariable("id") int id) {
+//        InvoiceViewModel invoice = inventoryService.findInvoice(id);
+//        if (invoice == null)
+//            throw new NotFoundException("Invoice could not be retrieved for id " + id);
+//        return invoice;
+//    }
+//
+//    @GetMapping("/customer/{customerId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<InvoiceViewModel> getInvoiceByCustomer(@PathVariable("customerId") int customerId) {
+//        List<InvoiceViewModel> invoices = inventoryService.findInvoiceByCustomer(customerId);
+//        if (invoices != null && invoices.size() == 0)
+//            throw new NotFoundException("Invoice could not be retrieved for customer " + customerId);
+//        return invoices;
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deleteInvoice(@PathVariable int id) {
+//        inventoryService.removeInvoice(id);
+//    }
+//}

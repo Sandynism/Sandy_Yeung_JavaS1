@@ -1,5 +1,6 @@
 package com.company.SandyYeungU1Capstone.controller;
 
+import com.company.SandyYeungU1Capstone.exception.NotFoundException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
@@ -68,11 +69,11 @@ public class ControllerExceptionHandler {
         return responseEntity;
     }
 
-//    @ExceptionHandler(value = {NotFoundException.class})
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public ResponseEntity<VndErrors> notFoundException(NotFoundException e, WebRequest request) {
-//        VndErrors error = new VndErrors(request.toString(), "Not found : " + e.getMessage());
-//        ResponseEntity<VndErrors> responseEntity = new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-//        return responseEntity;
-//    }
+    @ExceptionHandler(value = {NotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<VndErrors> notFoundException(NotFoundException e, WebRequest request) {
+        VndErrors error = new VndErrors(request.toString(), "Not found : " + e.getMessage());
+        ResponseEntity<VndErrors> responseEntity = new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return responseEntity;
+    }
 }
