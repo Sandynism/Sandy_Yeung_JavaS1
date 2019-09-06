@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public abstract class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
+public class InvoiceDaoJdbcTemplateImpl implements InvoiceDao {
 
     private static final String SELECT_ALL_INVOICES_SQL =
             "select * from invoice";

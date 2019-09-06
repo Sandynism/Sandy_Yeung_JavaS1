@@ -23,8 +23,8 @@ public class ProcessingFeeDaoTest {
     @Before
     public void setUp() throws Exception {
         List<ProcessingFee> processingFeesList = processingFeeDao.getAllProcessingFees();
-        for(ProcessingFee pf: processingFeesList) {
-            processingFeeDao.deleteProcessingFee(pf.getProductType());
+        for(ProcessingFee fee: processingFeesList) {
+            processingFeeDao.deleteProcessingFee(fee.getProductType());
         }
     }
 

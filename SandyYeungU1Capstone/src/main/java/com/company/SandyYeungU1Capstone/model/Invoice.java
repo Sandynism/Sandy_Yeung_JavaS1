@@ -1,5 +1,6 @@
 package com.company.SandyYeungU1Capstone.model;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -18,10 +19,10 @@ public class Invoice {
     @Size(min = 1, max = 30)
     private String city;
     @NotEmpty(message = "State must not be empty.")
-    @Size(min = 1, max = 30)
+    @Size(min = 2, max = 2, message ="State must be in ## format.")
     private String state;
     @NotEmpty(message = "Zipcode must not be empty.")
-    @Size(min = 5, max = 5)
+    @Size(min = 5, max = 5, message = "Zipcode must be in ##### format.")
     private String zipcode;
     @NotEmpty(message = "Item type must not be empty.")
     @Size(min = 1, max = 20)
@@ -31,6 +32,7 @@ public class Invoice {
     @NotEmpty(message = "Unit price must not be empty.")
     private BigDecimal unitPrice;
     @NotEmpty(message = "Quantity must not be empty.")
+    @Min(1)
     private int quantity;
     @NotEmpty(message = "Subtotal must not be empty.")
     private BigDecimal subtotal;
