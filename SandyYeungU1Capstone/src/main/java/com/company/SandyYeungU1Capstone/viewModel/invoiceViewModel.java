@@ -2,9 +2,7 @@ package com.company.SandyYeungU1Capstone.viewModel;
 
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -22,7 +20,7 @@ public class InvoiceViewModel {
     @Size(min = 1, max = 30)
     private String city;
     @NotEmpty(message = "State must not be empty.")
-    @Size(min = 2, max = 2, message = "State must be in ## format.")
+    @Size(min = 2, max = 2, message ="State must be in ## format.")
     private String state;
     @NotEmpty(message = "Zipcode must not be empty.")
     @Size(min = 5, max = 5, message = "Zipcode must be in ##### format.")
@@ -30,12 +28,14 @@ public class InvoiceViewModel {
     @NotEmpty(message = "Item type must not be empty.")
     @Size(min = 1, max = 20)
     private String itemType;
-    @NotEmpty(message = "Item ID type must not be empty.")
+    @Min(1)
     private int itemId;
-    @NotEmpty(message = "Quantity must not be empty.")
+    @Positive(message = "Price must be a positive amount.")
+    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMax(value = "999.99", inclusive = true)
+    private BigDecimal unitPrice;
     @Min(1)
     private int quantity;
-    private BigDecimal unitPrice;
     private BigDecimal subtotal;
     private BigDecimal tax;
     private BigDecimal processingFee;

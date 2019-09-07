@@ -17,11 +17,11 @@ public class Console {
     private String memoryAmount;
     @Size(min = 1, max = 20)
     private String processor;
-    @NotEmpty(message = "Price must not be empty.")
+    @Positive(message = "Price must be a positive amount.")
     @DecimalMin(value = "0.0", inclusive = true)
     @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal price;
-    @NotEmpty(message = "Quantity must not be empty.")
+    @Min(1)
     private int quantity;
 
     public int getConsoleId() {

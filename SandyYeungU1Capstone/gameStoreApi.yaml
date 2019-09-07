@@ -8,7 +8,7 @@ servers:
   - url: 'http://localhost:8080'
     description: Local dev server
 paths:
-  /games:
+  /games/add:
     post:
       summary: Creates a new game entry with the given information.
       requestBody:
@@ -29,6 +29,7 @@ paths:
         '422':
           description: Incomplete game information. Some required fields missing.
       
+  /games:  
     get:
       summary: Retrieves all game entries.
       responses:
@@ -41,7 +42,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Game'
           
-  /games/{gameId}:
+  /game/{gameId}:
     get:
       summary: Retrieves the entry for the game matching the given ID.
       parameters: 
@@ -99,7 +100,7 @@ paths:
         '422':
           description: Game ID on path must match the ID in the game object.
           
-  /games/{esrbRating}:
+  /games/rating/{esrbRating}:
     get:
       summary: Retrieves game entries with matching esrb rating. 
       parameters: 
@@ -121,7 +122,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Game'
                   
-  /games/{title}:
+  /games/title/{title}:
     get:
       summary: Retrieves game entries with matching title. 
       parameters: 
@@ -143,7 +144,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Game'
                   
-  /games/{studio}:
+  /games/studio/{studio}:
     get:
       summary: Retrieves game entries with matching studio. 
       parameters: 
@@ -165,7 +166,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Game'
           
-  /tshirts:
+  /tshirt/add:
     post:
       summary: Creates a new tshirt entry with the given information.
       requestBody:
@@ -186,6 +187,7 @@ paths:
         '422':
           description: Incomplete tshirt information. Some required fields missing.
           
+  /tshirts:        
     get:
       summary: Retrieves all tshirt entries.
       responses:
@@ -198,7 +200,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Tshirt'
           
-  /tshirts/{tshirtId}:
+  /tshirt/{tshirtId}:
     get:
       summary: Retrieves the entry for the tshirt matching the given ID.
       parameters: 
@@ -256,7 +258,7 @@ paths:
         '422':
           description: Tshirt ID on path must match the ID in the tshirt object.
           
-  /tshirts/{color}:
+  /tshirts/color/{color}:
     get:
       summary: Retrieves tshirt entries with matching color. 
       parameters: 
@@ -278,7 +280,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Tshirt'
           
-  /tshirts/{size}:
+  /tshirts/size/{size}:
     get:
       summary: Retrieves tshirt entries with matching size. 
       parameters: 
@@ -300,8 +302,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/Tshirt'
                   
-                  
+             
   /consoles:
+    get:
+      summary: Retrieves all console entries.
+      responses:
+        '200':
+          description: Console object(s)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Console'
+                  
+  /consoles/add:
     post:
       summary: Creates a new console entry with the given information.
       requestBody:
@@ -322,19 +337,7 @@ paths:
         '422':
           description: Incomplete console information. Some required fields missing.
           
-    get:
-      summary: Retrieves all console entries.
-      responses:
-        '200':
-          description: Console object(s)
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Console'
-          
-  /consoles/{consoleId}:
+  /console/{consoleId}:
     get:
       summary: Retrieves the entry for the console matching the given ID.
       parameters: 
@@ -392,7 +395,7 @@ paths:
         '422':
           description: Console ID on path must match the ID in the console object.
           
-  /consoles/{manufacturer}:
+  /consolesManufacturer/{manufacturer}:
     get:
       summary: Retrieves console entries with matching manufacturer. 
       parameters: 
@@ -414,7 +417,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Console'
           
-  /invoices:
+  /invoice/add:
     post:
       summary: Creates a new invoice entry with the given information.
       requestBody:
@@ -435,6 +438,7 @@ paths:
         '422':
           description: Incomplete invoice information. Some required fields missing.
           
+  /invoices:        
     get:
       summary: Retrieves all invoice entries.
       responses:

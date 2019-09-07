@@ -1,8 +1,6 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -27,20 +25,17 @@ public class Invoice {
     @NotEmpty(message = "Item type must not be empty.")
     @Size(min = 1, max = 20)
     private String itemType;
-    @NotEmpty(message = "Item ID type must not be empty.")
+    @Min(1)
     private int itemId;
-    @NotEmpty(message = "Unit price must not be empty.")
+    @Positive(message = "Price must be a positive amount.")
+    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal unitPrice;
-    @NotEmpty(message = "Quantity must not be empty.")
     @Min(1)
     private int quantity;
-    @NotEmpty(message = "Subtotal must not be empty.")
     private BigDecimal subtotal;
-    @NotEmpty(message = "Tax must not be empty.")
     private BigDecimal tax;
-    @NotEmpty(message = "Processing fee must not be empty.")
     private BigDecimal processingFee;
-    @NotEmpty(message = "Total must not be empty.")
     private BigDecimal total;
 
     public int getInvoiceId() {

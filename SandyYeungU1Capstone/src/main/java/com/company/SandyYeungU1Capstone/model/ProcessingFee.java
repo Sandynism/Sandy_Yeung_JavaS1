@@ -1,7 +1,6 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -10,7 +9,9 @@ public class ProcessingFee {
     @NotEmpty(message = "Product type must not be empty.")
     @Size(min=1, max=20)
     private String productType;
-    @NotEmpty(message = "Fee must not be empty.")
+    @Positive(message = "Processing fee must be a positive amount.")
+    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal fee;
 
     public String getProductType() {

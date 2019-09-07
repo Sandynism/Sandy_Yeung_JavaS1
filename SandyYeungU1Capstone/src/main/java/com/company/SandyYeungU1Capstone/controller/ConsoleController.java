@@ -11,24 +11,23 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/consoles")
 public class ConsoleController {
     @Autowired
     InvoiceServiceLayer invoiceService;
 
-    @PostMapping
+    @RequestMapping(value = "/consoles/add", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ConsoleViewModel createConsole(@RequestBody @Valid ConsoleViewModel console) {
         return invoiceService.saveConsole(console);
     }
 
-    @GetMapping
+    @RequestMapping(value = "/consoles", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ConsoleViewModel> getAllConsoles() {
         return invoiceService.findAllConsoles();
     }
 
-    @GetMapping("/{consoleId}")
+    @RequestMapping(value = "/console/{consoleId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public ConsoleViewModel getConsole(@PathVariable(name = "consoleId") int consoleId) {
         ConsoleViewModel console = invoiceService.findConsole(consoleId);
@@ -37,19 +36,19 @@ public class ConsoleController {
         return console;
     }
 
-    @DeleteMapping("/{consoleId}")
+    @RequestMapping(value = "/console/{consoleId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteConsole(@PathVariable(name = "consoleId") int consoleId) {
         invoiceService.deleteConsole(consoleId);
     }
 
-    @PutMapping("/{consoleId}")
+    @RequestMapping(value = "/console/{consoleId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updateConsole(@RequestBody @Valid ConsoleViewModel console) {
         invoiceService.updateConsole(console);
     }
 
-    @GetMapping("/{manufacturer}")
+    @RequestMapping(value = "/consolesManufacturer/{manufacturer}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ConsoleViewModel> getConsolesByManufacturer(@PathVariable(name = "manufacturer") String manufacturer) {
         return invoiceService.getConsolesByManufacturer(manufacturer);

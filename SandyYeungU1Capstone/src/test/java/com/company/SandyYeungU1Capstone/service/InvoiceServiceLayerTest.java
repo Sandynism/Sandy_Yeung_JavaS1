@@ -8,13 +8,11 @@ import com.company.SandyYeungU1Capstone.viewModel.InvoiceViewModel;
 import com.company.SandyYeungU1Capstone.viewModel.TshirtViewModel;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -264,6 +262,17 @@ public class InvoiceServiceLayerTest {
 
     @Test
     public void getConsolesByManufacturer() {
+        ConsoleViewModel console = new ConsoleViewModel();
+        console.setModel("PS4");
+        console.setManufacturer("Sony");
+        console.setMemoryAmount("512 MB");
+        console.setProcessor("APU");
+        console.setPrice(new BigDecimal("299.99"));
+        console.setQuantity(8);
+
+        console = invoiceService.saveConsole(console);
+        List<ConsoleViewModel> fromService = invoiceService.getConsolesByManufacturer("Sony");
+        assertEquals(fromService.size(), 1);
     }
 
     @Test
@@ -284,14 +293,47 @@ public class InvoiceServiceLayerTest {
 
     @Test
     public void getGamesByEsrbRating() {
+        GameViewModel game = new GameViewModel();
+        game.setTitle("Rayman Raving Rabbids");
+        game.setEsrbRating("E");
+        game.setDescription("The series focuses on wild rabbit-like creatures known as Rabbids, who like to cause havoc and mischief, speak gibberish and yell.");
+        game.setPrice(new BigDecimal("39.99"));
+        game.setStudio("Ubisoft Motion Pictures");
+        game.setQuantity(25);
+
+        game = invoiceService.saveGame(game);
+        List<GameViewModel> fromService = invoiceService.getGamesByEsrbRating("E");
+        assertEquals(fromService.size(), 1);
     }
 
     @Test
     public void getGamesByTitle() {
+        GameViewModel game = new GameViewModel();
+        game.setTitle("Rayman Raving Rabbids");
+        game.setEsrbRating("E");
+        game.setDescription("The series focuses on wild rabbit-like creatures known as Rabbids, who like to cause havoc and mischief, speak gibberish and yell.");
+        game.setPrice(new BigDecimal("39.99"));
+        game.setStudio("Ubisoft Motion Pictures");
+        game.setQuantity(25);
+
+        game = invoiceService.saveGame(game);
+        List<GameViewModel> fromService = invoiceService.getGamesByTitle("Rayman Raving Rabbids");
+        assertEquals(fromService.size(), 1);
     }
 
     @Test
     public void getGamesByStudio() {
+        GameViewModel game = new GameViewModel();
+        game.setTitle("Rayman Raving Rabbids");
+        game.setEsrbRating("E");
+        game.setDescription("The series focuses on wild rabbit-like creatures known as Rabbids, who like to cause havoc and mischief, speak gibberish and yell.");
+        game.setPrice(new BigDecimal("39.99"));
+        game.setStudio("Ubisoft Motion Pictures");
+        game.setQuantity(25);
+
+        game = invoiceService.saveGame(game);
+        List<GameViewModel> fromService = invoiceService.getGamesByStudio("Ubisoft Motion Pictures");
+        assertEquals(fromService.size(), 1);
     }
 
     @Test
@@ -311,10 +353,30 @@ public class InvoiceServiceLayerTest {
 
     @Test
     public void getTshirtsByColor() {
+        TshirtViewModel tshirt = new TshirtViewModel();
+        tshirt.setSize("Medium");
+        tshirt.setColor("White");
+        tshirt.setDescription("Premium Cotton");
+        tshirt.setPrice(new BigDecimal("9.99"));
+        tshirt.setQuantity(10);
+
+        tshirt = invoiceService.saveTshirt(tshirt);
+        List<TshirtViewModel> fromService = invoiceService.getTshirtsByColor("White");
+        assertEquals(fromService.size(), 1);
     }
 
     @Test
     public void getTshirtsBySize() {
+        TshirtViewModel tshirt = new TshirtViewModel();
+        tshirt.setSize("Medium");
+        tshirt.setColor("White");
+        tshirt.setDescription("Premium Cotton");
+        tshirt.setPrice(new BigDecimal("9.99"));
+        tshirt.setQuantity(10);
+
+        tshirt = invoiceService.saveTshirt(tshirt);
+        List<TshirtViewModel> fromService = invoiceService.getTshirtsBySize("Medium");
+        assertEquals(fromService.size(), 1);
     }
 
     @Test
@@ -340,22 +402,107 @@ public class InvoiceServiceLayerTest {
 
     @Test
     public void validateProductType() {
+        InvoiceViewModel invoice = new InvoiceViewModel();
+        invoice.setName("Sandy Yeung");
+        invoice.setStreet("189th St");
+        invoice.setCity("Fresh Meadows");
+        invoice.setState("NY");
+        invoice.setZipcode("11365");
+        invoice.setItemType("game");
+        invoice.setItemId(1);
+        invoice.setUnitPrice(new BigDecimal("39.99"));
+        invoice.setQuantity(5);
+        invoice.setSubtotal(new BigDecimal("199.95"));
+        invoice.setTax(new BigDecimal("0.06"));
+        invoice.setProcessingFee(new BigDecimal("1.49"));
+        invoice.setTotal(new BigDecimal("213.4370"));
+
+        invoice = invoiceService.saveInvoice(invoice);
+        assertEquals("game", invoiceService.validateProductType(invoice));
     }
 
     @Test
     public void validateItem() {
+        InvoiceViewModel invoice = new InvoiceViewModel();
+        invoice.setName("Sandy Yeung");
+        invoice.setStreet("189th St");
+        invoice.setCity("Fresh Meadows");
+        invoice.setState("NY");
+        invoice.setZipcode("11365");
+        invoice.setItemType("game");
+        invoice.setItemId(1);
+        invoice.setUnitPrice(new BigDecimal("39.99"));
+        invoice.setQuantity(5);
+        invoice.setSubtotal(new BigDecimal("199.95"));
+        invoice.setTax(new BigDecimal("0.06"));
+        invoice.setProcessingFee(new BigDecimal("1.49"));
+        invoice.setTotal(new BigDecimal("213.4370"));
+
+        invoice = invoiceService.saveInvoice(invoice);
+        assertEquals(1, invoiceService.validateItem(invoice));
     }
 
     @Test
     public void validateAndUpdateInventory() {
+        InvoiceViewModel invoice = new InvoiceViewModel();
+        invoice.setName("Sandy Yeung");
+        invoice.setStreet("189th St");
+        invoice.setCity("Fresh Meadows");
+        invoice.setState("NY");
+        invoice.setZipcode("11365");
+        invoice.setItemType("game");
+        invoice.setItemId(1);
+        invoice.setUnitPrice(new BigDecimal("39.99"));
+        invoice.setQuantity(5);
+        invoice.setSubtotal(new BigDecimal("199.95"));
+        invoice.setTax(new BigDecimal("0.06"));
+        invoice.setProcessingFee(new BigDecimal("1.49"));
+        invoice.setTotal(new BigDecimal("213.4370"));
+
+        invoice = invoiceService.saveInvoice(invoice);
+        assertEquals(5, invoiceService.validateAndUpdateInventory(invoice));
     }
 
     @Test
     public void getItemPrice() {
+        InvoiceViewModel invoice = new InvoiceViewModel();
+        invoice.setName("Sandy Yeung");
+        invoice.setStreet("189th St");
+        invoice.setCity("Fresh Meadows");
+        invoice.setState("NY");
+        invoice.setZipcode("11365");
+        invoice.setItemType("game");
+        invoice.setItemId(1);
+        invoice.setUnitPrice(new BigDecimal("39.99"));
+        invoice.setQuantity(5);
+        invoice.setSubtotal(new BigDecimal("199.95"));
+        invoice.setTax(new BigDecimal("0.06"));
+        invoice.setProcessingFee(new BigDecimal("1.49"));
+        invoice.setTotal(new BigDecimal("213.4370"));
+
+        invoice = invoiceService.saveInvoice(invoice);
+        assertEquals(new BigDecimal("39.99"), invoiceService.getItemPrice(invoice));
     }
 
     @Test
     public void calculateSubtotal() {
+        InvoiceViewModel invoice = new InvoiceViewModel();
+        invoice.setName("Sandy Yeung");
+        invoice.setStreet("189th St");
+        invoice.setCity("Fresh Meadows");
+        invoice.setState("NY");
+        invoice.setZipcode("11365");
+        invoice.setItemType("game");
+        invoice.setItemId(1);
+        invoice.setUnitPrice(new BigDecimal("39.99"));
+        invoice.setQuantity(5);
+//        invoice.setSubtotal(new BigDecimal("199.95"));
+//        invoice.setTax(new BigDecimal("0.06"));
+//        invoice.setProcessingFee(new BigDecimal("1.49"));
+//        invoice.setTotal(new BigDecimal("213.4370"));
+
+        invoice = invoiceService.saveInvoice(invoice);
+        assertEquals(new BigDecimal("199.95"), invoiceService.calculateSubtotal(invoice));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package com.company.SandyYeungU1Capstone.model;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -10,7 +9,9 @@ public class SalesTaxRate {
     @NotEmpty(message = "State must not be empty.")
     @Size(min=2, max=2, message = "State must be in ## format.")
     private String state;
-    @NotEmpty(message = "Rate must not be empty.")
+    @Positive(message = "Rate must be a positive amount.")
+    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal rate;
 
     public String getState() {

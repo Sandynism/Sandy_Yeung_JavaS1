@@ -1,7 +1,6 @@
 package com.company.SandyYeungU1Capstone.viewModel;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -16,9 +15,11 @@ public class TshirtViewModel {
     @NotEmpty(message = "Description must not be empty.")
     @Size(min = 3, max = 255)
     private String description;
-    @NotEmpty(message = "Price must not be empty.")
+    @Positive(message = "Price must be a positive amount.")
+    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal price;
-    @NotEmpty(message = "Quantity must not be empty.")
+    @Min(1)
     private int quantity;
 
     public int getTshirtId() {

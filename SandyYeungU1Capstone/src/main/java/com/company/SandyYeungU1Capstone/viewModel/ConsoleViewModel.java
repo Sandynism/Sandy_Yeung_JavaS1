@@ -1,9 +1,6 @@
 package com.company.SandyYeungU1Capstone.viewModel;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -19,11 +16,11 @@ public class ConsoleViewModel {
     private String memoryAmount;
     @Size(min = 1, max = 20)
     private String processor;
-    @NotEmpty(message = "Price must not be empty.")
+    @Positive(message = "Price must be a positive amount.")
     @DecimalMin(value = "0.0", inclusive = true)
     @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal price;
-    @NotEmpty(message = "Quantity must not be empty.")
+    @Min(1)
     private int quantity;
 
     public int getConsoleId() {

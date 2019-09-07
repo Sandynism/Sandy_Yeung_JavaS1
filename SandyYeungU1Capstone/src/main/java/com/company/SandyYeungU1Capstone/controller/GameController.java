@@ -10,56 +10,54 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/games")
 public class GameController {
 
     @Autowired
     InvoiceServiceLayer invoiceService;
 
-    @PostMapping
+    @RequestMapping(value = "/games/add", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public GameViewModel createGame(@RequestBody @Valid GameViewModel game) {
-        invoiceService.saveGame(game);
-        return game;
+        return invoiceService.saveGame(game);
     }
 
-    @GetMapping
+    @RequestMapping(value = "/games", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<GameViewModel> getAllGames() {
         return invoiceService.findAllGames();
     }
 
-    @GetMapping(value="/{gameId}")
+    @RequestMapping(value = "/game/{gameId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public GameViewModel getGame(@PathVariable(name="gameId") int gameId) {
         return invoiceService.findGame(gameId);
     }
 
-    @DeleteMapping(value="/{gameId}")
+    @RequestMapping(value = "/game/{gameId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteGame(@PathVariable(name="gameId") int gameId) {
         invoiceService.deleteGame(gameId);
     }
 
-    @PutMapping(value="/{gameId}")
+    @RequestMapping(value = "/game/{gameId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updateGame(@RequestBody @Valid GameViewModel game) {
         invoiceService.updateGame(game);
     }
 
-    @GetMapping(value="/{esrbRating}")
+    @RequestMapping(value = "/games/rating/{esrbRating}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<GameViewModel> getGamesByEsrbRating(@PathVariable(name="esrbRating") String esrbRating) {
         return invoiceService.getGamesByEsrbRating(esrbRating);
     }
 
-    @GetMapping("/{title}")
+    @RequestMapping(value = "/games/title/{title}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<GameViewModel> getGamesByTitle(@PathVariable(name="title") String title) {
         return invoiceService.getGamesByTitle(title);
     }
 
-    @GetMapping("/{studio}")
+    @RequestMapping(value = "/games/studio/{studio}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<GameViewModel> getGamesByStudio(@PathVariable(name="studio") String studio) {
         return invoiceService.getGamesByStudio(studio);
