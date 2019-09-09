@@ -18,7 +18,11 @@ public class ConsoleController {
     @RequestMapping(value = "/consoles/add", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ConsoleViewModel createConsole(@RequestBody @Valid ConsoleViewModel console) {
-        return invoiceService.saveConsole(console);
+        ConsoleViewModel existing = invoiceService.findConsole(console.getConsoleId());
+        if (existing != null)
+            throw new IllegalArgumentException("Console " + console.getConsoleId() + " already exists!");
+        invoiceService.saveConsole(console);
+        return console;
     }
 
     @RequestMapping(value = "/consoles", method = RequestMethod.GET)
@@ -37,7 +41,7 @@ public class ConsoleController {
     }
 
     @RequestMapping(value = "/console/{consoleId}", method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteConsole(@PathVariable(name = "consoleId") int consoleId) {
         invoiceService.deleteConsole(consoleId);
     }
@@ -45,52 +49,19 @@ public class ConsoleController {
     @RequestMapping(value = "/console/{consoleId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updateConsole(@RequestBody @Valid ConsoleViewModel console) {
+        ConsoleViewModel notExisting = invoiceService.findConsole(console.getConsoleId());
+        if(notExisting == null)
+            throw new IllegalArgumentException("Console " + console.getConsoleId() + " does not exist.");
         invoiceService.updateConsole(console);
     }
 
     @RequestMapping(value = "/consolesManufacturer/{manufacturer}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ConsoleViewModel> getConsolesByManufacturer(@PathVariable(name = "manufacturer") String manufacturer) {
-        return invoiceService.getConsolesByManufacturer(manufacturer);
+        List<ConsoleViewModel> consoles = invoiceService.getConsolesByManufacturer(manufacturer);
+        if(consoles != null && consoles.size() == 0)
+            throw new NotFoundException("Consoles could not be found for " + manufacturer);
+        return consoles;
     }
 }
 
-
-//@RestController
-//@RequestMapping("/invoice")
-//public class InvoiceInventoryController {
-//
-//    @Autowired
-//    InvoiceInventoryService inventoryService;
-//
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public InvoiceViewModel createInvoice(@RequestBody InvoiceViewModel invoice) {
-//        return inventoryService.saveInvoice(invoice);
-//    }
-//
-//    @GetMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    //As per requirement this method is not needed
-//    public InvoiceViewModel getInvoice(@PathVariable("id") int id) {
-//        InvoiceViewModel invoice = inventoryService.findInvoice(id);
-//        if (invoice == null)
-//            throw new NotFoundException("Invoice could not be retrieved for id " + id);
-//        return invoice;
-//    }
-//
-//    @GetMapping("/customer/{customerId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<InvoiceViewModel> getInvoiceByCustomer(@PathVariable("customerId") int customerId) {
-//        List<InvoiceViewModel> invoices = inventoryService.findInvoiceByCustomer(customerId);
-//        if (invoices != null && invoices.size() == 0)
-//            throw new NotFoundException("Invoice could not be retrieved for customer " + customerId);
-//        return invoices;
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void deleteInvoice(@PathVariable int id) {
-//        inventoryService.removeInvoice(id);
-//    }
-//}

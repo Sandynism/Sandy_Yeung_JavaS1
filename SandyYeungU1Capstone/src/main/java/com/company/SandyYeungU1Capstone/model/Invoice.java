@@ -27,7 +27,7 @@ public class Invoice {
     private String itemType;
     @Min(1)
     private int itemId;
-    @Positive(message = "Price must be a positive amount.")
+//    @Positive(message = "Price must be a positive amount.")
     @DecimalMin(value = "0.0", inclusive = true)
     @DecimalMax(value = "999.99", inclusive = true)
     private BigDecimal unitPrice;

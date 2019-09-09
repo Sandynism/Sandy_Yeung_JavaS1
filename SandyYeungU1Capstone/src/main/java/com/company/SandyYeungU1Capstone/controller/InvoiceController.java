@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -17,8 +18,12 @@ public class InvoiceController {
 
     @RequestMapping(value="/invoices/add", method=RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
-    public InvoiceViewModel createInvoice(@RequestBody InvoiceViewModel invoice) {
-        return invoiceService.saveInvoice(invoice);
+    public InvoiceViewModel createInvoice(@RequestBody @Valid InvoiceViewModel invoice) {
+        InvoiceViewModel existing = invoiceService.findInvoice(invoice.getInvoiceId());
+        if(existing != null)
+            throw new IllegalArgumentException("Invoice " + invoice.getInvoiceId() + " already exists!");
+        invoiceService.saveInvoice(invoice);
+        return invoice;
     }
 
     @RequestMapping(value="/invoices", method=RequestMethod.GET)
@@ -36,15 +41,20 @@ public class InvoiceController {
         return invoice;
     }
 
+    //user should not be allowed to delete invoice***
     @RequestMapping(value="/invoice/{invoiceId}", method=RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteInvoice(@PathVariable(name="invoiceId") int invoiceId) {
         invoiceService.deleteInvoice(invoiceId);
     }
 
+    //user should not be allowed to update invoice***
     @RequestMapping(value="/invoice/{invoiceId}", method=RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateInvoice(@RequestBody InvoiceViewModel invoice) {
+    public void updateInvoice(@RequestBody @Valid InvoiceViewModel invoice) {
+        InvoiceViewModel notExisting = invoiceService.findInvoice(invoice.getInvoiceId());
+        if(notExisting == null)
+            throw new IllegalArgumentException("Invoice " + invoice.getInvoiceId() + " does not exist.");
         invoiceService.updateInvoice(invoice);
     }
 

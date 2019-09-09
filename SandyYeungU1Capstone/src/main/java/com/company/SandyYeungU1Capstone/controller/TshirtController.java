@@ -1,6 +1,6 @@
 package com.company.SandyYeungU1Capstone.controller;
 
-import com.company.SandyYeungU1Capstone.model.Tshirt;
+import com.company.SandyYeungU1Capstone.exception.NotFoundException;
 import com.company.SandyYeungU1Capstone.service.InvoiceServiceLayer;
 import com.company.SandyYeungU1Capstone.viewModel.TshirtViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,9 @@ public class TshirtController {
     @RequestMapping(value = "/tshirt/add", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public TshirtViewModel createTshirt(@RequestBody @Valid TshirtViewModel tshirt) {
+        TshirtViewModel existing = invoiceService.findTshirt(tshirt.getTshirtId());
+        if(existing != null)
+            throw new IllegalArgumentException("Tshirt " + tshirt.getTshirtId() + " already exists!");
         invoiceService.saveTshirt(tshirt);
         return tshirt;
     }
@@ -31,11 +34,14 @@ public class TshirtController {
     @RequestMapping(value = "/tshirt/{tshirtId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public TshirtViewModel getTshirt(@PathVariable(name = "tshirtId") int tshirtId) {
-        return invoiceService.findTshirt(tshirtId);
+        TshirtViewModel tshirt = invoiceService.findTshirt(tshirtId);
+        if(tshirt == null)
+            throw new NotFoundException("Tshirt could not be retrieved for id " + tshirtId);
+        return tshirt;
     }
 
     @RequestMapping(value = "/tshirt/{tshirtId}", method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteTshirt(@PathVariable(name = "tshirtId") int tshirtId) {
         invoiceService.deleteTshirt(tshirtId);
     }
@@ -43,19 +49,28 @@ public class TshirtController {
     @RequestMapping(value = "/tshirt/{tshirtId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updateTshirt(@RequestBody @Valid TshirtViewModel tshirt) {
+        TshirtViewModel notExisting = invoiceService.findTshirt(tshirt.getTshirtId());
+        if(notExisting == null)
+            throw new IllegalArgumentException("Tshirt " + tshirt.getTshirtId() + " does not exist.");
         invoiceService.updateTshirt(tshirt);
     }
 
     @RequestMapping(value = "/tshirts/color/{color}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<TshirtViewModel> getTshirtsByColor(@PathVariable(name = "color") String color) {
-        return invoiceService.getTshirtsByColor(color);
+        List<TshirtViewModel> tshirts = invoiceService.getTshirtsByColor(color);
+        if(tshirts != null && tshirts.size() == 0)
+            throw new NotFoundException("Tshirts could not be found for " + color + " color");
+        return tshirts;
     }
 
     @RequestMapping(value = "/tshirts/size/{size}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<TshirtViewModel> getTshirtsBySize(@PathVariable(name = "size") String size) {
-        return invoiceService.getTshirtsBySize(size);
+        List<TshirtViewModel> tshirts = invoiceService.getTshirtsBySize(size);
+        if(tshirts != null && tshirts.size() == 0)
+            throw new NotFoundException("Tshirts could not be found for size " + size);
+        return tshirts;
     }
 
 }

@@ -52,7 +52,6 @@ public class InvoiceServiceLayer {
         invoice.setStreet(ivm.getStreet());
         invoice.setCity(ivm.getCity());
         invoice.setState(validateState(ivm));
-//        invoice.setState(ivm.getState());
         invoice.setZipcode(ivm.getZipcode());
         invoice.setItemType(validateProductType(ivm));
         invoice.setItemId(validateItem(ivm));
@@ -93,6 +92,7 @@ public class InvoiceServiceLayer {
 
     public void updateInvoice(InvoiceViewModel ivm) {
         Invoice invoice = new Invoice();
+        invoice.setInvoiceId(ivm.getInvoiceId());
         invoice.setName(ivm.getName());
         invoice.setStreet(ivm.getStreet());
         invoice.setCity(ivm.getCity());
@@ -144,10 +144,11 @@ public class InvoiceServiceLayer {
 
     public void updateConsole(ConsoleViewModel cvm) {
         Console console = new Console();
-        console.setModel(console.getModel());
-        console.setManufacturer(console.getManufacturer());
-        console.setMemoryAmount(console.getMemoryAmount());
-        console.setProcessor(console.getProcessor());
+        console.setConsoleId(cvm.getConsoleId());
+        console.setModel(cvm.getModel());
+        console.setManufacturer(cvm.getManufacturer());
+        console.setMemoryAmount(cvm.getMemoryAmount());
+        console.setProcessor(cvm.getProcessor());
         console.setPrice(cvm.getPrice());
         console.setQuantity(cvm.getQuantity());
 
@@ -203,6 +204,7 @@ public class InvoiceServiceLayer {
 
     public void updateGame(GameViewModel gvm) {
         Game game = new Game();
+        game.setGameId(gvm.getGameId());
         game.setTitle(gvm.getTitle());
         game.setEsrbRating(gvm.getEsrbRating());
         game.setDescription(gvm.getDescription());
@@ -280,6 +282,7 @@ public class InvoiceServiceLayer {
 
     public void updateTshirt(TshirtViewModel tvm) {
         Tshirt tshirt = new Tshirt();
+        tshirt.setTshirtId(tvm.getTshirtId());
         tshirt.setSize(tvm.getSize());
         tshirt.setColor(tvm.getColor());
         tshirt.setDescription(tvm.getDescription());
@@ -321,7 +324,6 @@ public class InvoiceServiceLayer {
         return state;
     }
 
-
     //method to validate product type
     public String validateProductType(InvoiceViewModel ivm) {
         String userProductType = ivm.getItemType().toLowerCase();
@@ -333,7 +335,7 @@ public class InvoiceServiceLayer {
         } else if (userProductType.equals("games") || userProductType.equals("game")) {
             productType = "game";
         } else {
-            productType = "null";
+            throw new NotFoundException(userProductType + " is not a valid product type.");
         }
         return productType;
     }
@@ -428,7 +430,7 @@ public class InvoiceServiceLayer {
     public BigDecimal calculateSalesTax(InvoiceViewModel ivm) {
         Invoice invoice = new Invoice();
         state = validateState(ivm);
-//        state = ivm.getState();
+
         salesTax = salesTaxRateDao.getSalesTaxRate(state).getRate();
 
         invoice.setTax(salesTax);
