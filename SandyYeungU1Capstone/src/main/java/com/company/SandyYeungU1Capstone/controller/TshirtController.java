@@ -15,7 +15,7 @@ public class TshirtController {
     @Autowired
     InvoiceServiceLayer invoiceService;
 
-    @RequestMapping(value = "/tshirt/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/tshirts/add", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public TshirtViewModel createTshirt(@RequestBody @Valid TshirtViewModel tshirt) {
         TshirtViewModel existing = invoiceService.findTshirt(tshirt.getTshirtId());

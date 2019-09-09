@@ -179,7 +179,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Tshirt'
           
-  /tshirt/add:
+  /tshirts/add:
     post:
       summary: Creates a new tshirt entry with the given information.
       requestBody:
@@ -431,7 +431,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Invoice'
           
-  /invoice/add:
+  /invoices/add:
     post:
       summary: Creates a new invoice entry with the given information.
       requestBody:
