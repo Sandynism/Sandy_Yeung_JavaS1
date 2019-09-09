@@ -439,7 +439,7 @@ public class InvoiceServiceLayer {
     public BigDecimal calculateProcessingFees(InvoiceViewModel ivm) {
         Invoice invoice = new Invoice();
 
-        String type = validateProductType(ivm) +"s";
+        String type = validateProductType(ivm) + "s";
         int quantity = ivm.getQuantity();
 
         processingFee = processingFeeDao.getProcessingFee(type).getFee();

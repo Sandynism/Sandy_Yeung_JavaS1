@@ -8,6 +8,19 @@ servers:
   - url: 'http://localhost:8080'
     description: Local dev server
 paths:
+  /games:  
+    get:
+      summary: Retrieves all game entries.
+      responses:
+        '200':
+          description: Game object(s)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+                  
   /games/add:
     post:
       summary: Creates a new game entry with the given information.
@@ -27,21 +40,7 @@ paths:
         '400':
           description: Invalid request syntax.
         '422':
-          description: Incomplete game information. Some required fields missing.
-      
-  /games:  
-    get:
-      summary: Retrieves all game entries.
-      responses:
-        '200':
-          description: Game object(s)
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Game'
-          
+          description: Incomplete game information. Some required fields missing.              
   /game/{gameId}:
     get:
       summary: Retrieves the entry for the game matching the given ID.
@@ -166,6 +165,20 @@ paths:
                 items:
                   $ref: '#/components/schemas/Game'
           
+  
+  /tshirts:        
+    get:
+      summary: Retrieves all tshirt entries.
+      responses:
+        '200':
+          description: Tshirt object(s)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tshirt'
+          
   /tshirt/add:
     post:
       summary: Creates a new tshirt entry with the given information.
@@ -185,20 +198,7 @@ paths:
         '400':
           description: Invalid request syntax.
         '422':
-          description: Incomplete tshirt information. Some required fields missing.
-          
-  /tshirts:        
-    get:
-      summary: Retrieves all tshirt entries.
-      responses:
-        '200':
-          description: Tshirt object(s)
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Tshirt'
+          description: Incomplete tshirt information. Some required fields missing.  
           
   /tshirt/{tshirtId}:
     get:
@@ -417,6 +417,20 @@ paths:
                 items:
                   $ref: '#/components/schemas/Console'
           
+  
+  /invoices:        
+    get:
+      summary: Retrieves all invoice entries.
+      responses:
+        '200':
+          description: Invoice object(s)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invoice'
+          
   /invoice/add:
     post:
       summary: Creates a new invoice entry with the given information.
@@ -437,19 +451,6 @@ paths:
           description: Invalid request syntax.
         '422':
           description: Incomplete invoice information. Some required fields missing.
-          
-  /invoices:        
-    get:
-      summary: Retrieves all invoice entries.
-      responses:
-        '200':
-          description: Invoice object(s)
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Invoice'
           
   /invoices/{invoiceId}:
     get:
