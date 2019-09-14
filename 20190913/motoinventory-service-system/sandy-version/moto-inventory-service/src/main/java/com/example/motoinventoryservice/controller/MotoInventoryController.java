@@ -91,11 +91,20 @@ public class MotoInventoryController {
 
     }
 
+//    @RequestMapping(value = "/vehicle/{vin}", method = RequestMethod.GET)
+//    public Map getVehicleByVin(@PathVariable String vin) {
+//        List<ServiceInstance> instances = discoveryClient.getInstances(vinLookupName);
+//
+//        String vinLookupServiceUri = serviceProtocol + instances.get(0).getHost() + ":" + instances.get(0).getPort() + servicePath + vin;
+//
+//        Map vehicle = restTemplate.getForObject(vinLookupServiceUri, Map.class);
+//
+//        return vehicle;
+//    }
+
     @RequestMapping(value = "/vehicle/{vin}", method = RequestMethod.GET)
     public Map getVehicleVin(@PathVariable String vin) {
         return client.getVehicleInformation(vin);
-
-
     }
 
 
