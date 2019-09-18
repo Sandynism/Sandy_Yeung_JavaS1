@@ -23,6 +23,7 @@ public class RsvpController {
         this.dao = dao;
     }
 
+    //grabs the result and puts a cache on the matching id.
     @CachePut(key = "#result.getId()")
     @RequestMapping(value = "/rsvps", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -46,6 +47,7 @@ public class RsvpController {
         return dao.getAllRsvps();
     }
 
+    //cacheEvict uses the id as a key to delete the old values for the update.
     @CacheEvict(key = "#rsvp.getId()")
     @RequestMapping(value = "/rsvps", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
@@ -54,6 +56,7 @@ public class RsvpController {
         dao.updateRsvp(rsvp);
     }
 
+    //does not require a key because it is fully evicting data for given id.
     @CacheEvict
     @RequestMapping(value = "/rsvps/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
