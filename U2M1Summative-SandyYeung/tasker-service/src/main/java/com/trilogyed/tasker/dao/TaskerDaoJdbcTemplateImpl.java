@@ -75,11 +75,11 @@ public class TaskerDaoJdbcTemplateImpl implements TaskerDao {
 
     @Override
     public void updateTask(Task task) {
-
+        jdbcTemplate.update(UPDATE_TASK_SQL, task.getDescription(), task.getCreateDate(), task.getDueDate(), task.getCategory(), task.getId());
     }
 
     @Override
     public void deleteTask(int id) {
-
+        jdbcTemplate.update(DELETE_TASK_SQL, id);
     }
 }
