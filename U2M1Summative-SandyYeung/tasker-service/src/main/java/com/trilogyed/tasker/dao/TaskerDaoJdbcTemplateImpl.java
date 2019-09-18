@@ -2,8 +2,10 @@ package com.trilogyed.tasker.dao;
 
 import com.trilogyed.tasker.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,23 +46,31 @@ public class TaskerDaoJdbcTemplateImpl implements TaskerDao {
     }
 
     @Override
+    @Transactional
     public Task createTask(Task task) {
-        return null;
+        jdbcTemplate.update(INSERT_TASK_SQL, task.getDescription(), task.getCreateDate(), task.getDueDate(), task.getCategory());
+        int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
+        task.setId(id);
+        return task;
     }
 
     @Override
     public Task getTask(int id) {
-        return null;
+        try {
+            return jdbcTemplate.queryForObject(SELECT_TASK_BY_ID_SQL, this::mapRowToTask, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public List<Task> getAllTasks() {
-        return null;
+        return jdbcTemplate.query(SELECT_ALL_TASKS_SQL, this::mapRowToTask);
     }
 
     @Override
     public List<Task> getTasksByCategory(String category) {
-        return null;
+        return jdbcTemplate.query(SELECT_TASKS_BY_CATEGORY_SQL, this::mapRowToTask, category);
     }
 
     @Override
