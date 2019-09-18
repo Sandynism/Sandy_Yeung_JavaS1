@@ -29,16 +29,7 @@ public class TaskerServiceLayer {
         if (task == null) {
             return null;
         } else {
-            ad = adserverClient.getAd();
-            TaskViewModel tvm = new TaskViewModel();
-            tvm.setId(task.getId());
-            tvm.setDescription(task.getDescription());
-            tvm.setCreateDate(task.getCreateDate());
-            tvm.setDueDate(task.getDueDate());
-            tvm.setCategory(task.getCategory());
-            tvm.setAdvertisement(ad);
-
-            return tvm;
+            return buildTaskViewModel(task);
         }
     }
 
