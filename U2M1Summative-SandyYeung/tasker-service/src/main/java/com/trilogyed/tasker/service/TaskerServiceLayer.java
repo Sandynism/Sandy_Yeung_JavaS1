@@ -13,6 +13,7 @@ import java.util.List;
 
 @Component
 public class TaskerServiceLayer {
+    private String ad;
 
     TaskerDao dao;
     AdserverClient adserverClient;
@@ -28,7 +29,7 @@ public class TaskerServiceLayer {
         if (task == null) {
             return null;
         } else {
-            String ad = adserverClient.getAd();
+            ad = adserverClient.getAd();
             TaskViewModel tvm = new TaskViewModel();
             tvm.setId(task.getId());
             tvm.setDescription(task.getDescription());
@@ -39,28 +40,13 @@ public class TaskerServiceLayer {
 
             return tvm;
         }
-//        Task task = dao.getTask(id);
-//        String ad = adserverClient.getAd();
-//
-//        TaskViewModel tvm = new TaskViewModel();
-//
-//        tvm.setId(task.getId());
-//        tvm.setDescription(task.getDescription());
-//        tvm.setCreateDate(task.getCreateDate());
-//        tvm.setDueDate(task.getDueDate());
-//        tvm.setCategory(task.getCategory());
-//        tvm.setAdvertisement(ad);
-//
-//        // TODO - get ad from Adserver and put in tvm
-//
-//        return tvm;
     }
 
     public List<TaskViewModel> fetchAllTasks() {
         List<Task> taskList = dao.getAllTasks();
         List<TaskViewModel> tvmList = new ArrayList<>();
 
-        for(Task t: taskList) {
+        for (Task t : taskList) {
             tvmList.add(buildTaskViewModel(t));
         }
         return tvmList;
@@ -70,7 +56,7 @@ public class TaskerServiceLayer {
         List<Task> taskList = dao.getTasksByCategory(category);
         List<TaskViewModel> tvmList = new ArrayList<>();
 
-        for(Task t: taskList) {
+        for (Task t : taskList) {
             tvmList.add(buildTaskViewModel(t));
         }
         return tvmList;
@@ -87,16 +73,15 @@ public class TaskerServiceLayer {
 
         task = dao.createTask(task);
 
+        ad = adserverClient.getAd();
+
         taskViewModel.setId(task.getId());
         taskViewModel.setDescription(task.getDescription());
         taskViewModel.setCreateDate(task.getCreateDate());
         taskViewModel.setDueDate(task.getDueDate());
         taskViewModel.setCategory(task.getCategory());
-
-        String ad = adserverClient.getAd();
         taskViewModel.setAdvertisement(ad);
 
-        // TODO - get ad from Adserver and put in taskViewModel
         return taskViewModel;
     }
 
@@ -115,14 +100,14 @@ public class TaskerServiceLayer {
     }
 
     private TaskViewModel buildTaskViewModel(Task task) {
+        ad = adserverClient.getAd();
         TaskViewModel tvm = new TaskViewModel();
+
         tvm.setId(task.getId());
         tvm.setDescription(task.getDescription());
         tvm.setCreateDate(task.getCreateDate());
         tvm.setDueDate(task.getDueDate());
         tvm.setCategory(task.getCategory());
-//        tvm.setAdvertisement(ad.getAd());
-        String ad = adserverClient.getAd();
         tvm.setAdvertisement(ad);
 
         return tvm;
