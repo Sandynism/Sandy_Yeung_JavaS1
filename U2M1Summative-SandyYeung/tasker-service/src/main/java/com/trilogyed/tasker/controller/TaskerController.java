@@ -5,6 +5,7 @@ import com.trilogyed.tasker.model.TaskViewModel;
 import com.trilogyed.tasker.service.TaskerServiceLayer;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RefreshScope
 public class TaskerController {
 
     @Autowired
@@ -66,7 +68,7 @@ public class TaskerController {
         return tasksList;
     }
 
-    @RequestMapping(value = "/tasks{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteTask(@PathVariable int id) {
         service.deleteTask(id);

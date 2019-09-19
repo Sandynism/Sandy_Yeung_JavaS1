@@ -64,14 +64,14 @@ public class TaskerServiceLayer {
 
         task = dao.createTask(task);
 
-        ad = adserverClient.getAd();
+//        ad = adserverClient.getAd();
 
         taskViewModel.setId(task.getId());
         taskViewModel.setDescription(task.getDescription());
         taskViewModel.setCreateDate(task.getCreateDate());
         taskViewModel.setDueDate(task.getDueDate());
         taskViewModel.setCategory(task.getCategory());
-        taskViewModel.setAdvertisement(ad);
+        taskViewModel.setAdvertisement(taskViewModel.getAdvertisement());
 
         return taskViewModel;
     }

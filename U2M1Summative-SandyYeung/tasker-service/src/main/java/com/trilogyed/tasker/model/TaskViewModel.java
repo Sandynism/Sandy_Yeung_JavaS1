@@ -1,13 +1,29 @@
 package com.trilogyed.tasker.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class TaskViewModel {
+
     private int id;
+    @Size(min=1, max=255)
     private String description;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate createDate;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate dueDate;
+    @Size(min=1, max=50)
     private String category;
     private String advertisement;
 
