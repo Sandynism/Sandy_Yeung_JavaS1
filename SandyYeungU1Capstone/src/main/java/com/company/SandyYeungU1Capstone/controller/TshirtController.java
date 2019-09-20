@@ -15,7 +15,7 @@ public class TshirtController {
     @Autowired
     InvoiceServiceLayer invoiceService;
 
-    @RequestMapping(value = "/tshirts/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/tshirt", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public TshirtViewModel createTshirt(@RequestBody @Valid TshirtViewModel tshirt) {
         TshirtViewModel existing = invoiceService.findTshirt(tshirt.getTshirtId());
@@ -25,7 +25,7 @@ public class TshirtController {
         return tshirt;
     }
 
-    @RequestMapping(value = "/tshirts", method = RequestMethod.GET)
+    @RequestMapping(value = "/tshirt", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<TshirtViewModel> getAllTshirts() {
         return invoiceService.findAllTshirts();
@@ -55,7 +55,7 @@ public class TshirtController {
         invoiceService.updateTshirt(tshirt);
     }
 
-    @RequestMapping(value = "/tshirts/color/{color}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tshirt/color/{color}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<TshirtViewModel> getTshirtsByColor(@PathVariable(name = "color") String color) {
         List<TshirtViewModel> tshirts = invoiceService.getTshirtsByColor(color);
@@ -64,7 +64,7 @@ public class TshirtController {
         return tshirts;
     }
 
-    @RequestMapping(value = "/tshirts/size/{size}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tshirt/size/{size}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<TshirtViewModel> getTshirtsBySize(@PathVariable(name = "size") String size) {
         List<TshirtViewModel> tshirts = invoiceService.getTshirtsBySize(size);

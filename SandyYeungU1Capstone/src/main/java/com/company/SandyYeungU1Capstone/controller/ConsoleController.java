@@ -15,7 +15,7 @@ public class ConsoleController {
     @Autowired
     InvoiceServiceLayer invoiceService;
 
-    @RequestMapping(value = "/consoles/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/console", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public ConsoleViewModel createConsole(@RequestBody @Valid ConsoleViewModel console) {
         ConsoleViewModel existing = invoiceService.findConsole(console.getConsoleId());
@@ -25,7 +25,7 @@ public class ConsoleController {
         return console;
     }
 
-    @RequestMapping(value = "/consoles", method = RequestMethod.GET)
+    @RequestMapping(value = "/console", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ConsoleViewModel> getAllConsoles() {
         return invoiceService.findAllConsoles();
@@ -55,7 +55,7 @@ public class ConsoleController {
         invoiceService.updateConsole(console);
     }
 
-    @RequestMapping(value = "/consolesManufacturer/{manufacturer}", method = RequestMethod.GET)
+    @RequestMapping(value = "/console/manufacturer/{manufacturer}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ConsoleViewModel> getConsolesByManufacturer(@PathVariable(name = "manufacturer") String manufacturer) {
         List<ConsoleViewModel> consoles = invoiceService.getConsolesByManufacturer(manufacturer);

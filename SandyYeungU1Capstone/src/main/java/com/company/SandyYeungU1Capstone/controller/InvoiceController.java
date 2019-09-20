@@ -16,7 +16,7 @@ public class InvoiceController {
     @Autowired
     InvoiceServiceLayer invoiceService;
 
-    @RequestMapping(value="/invoices/add", method=RequestMethod.POST)
+    @RequestMapping(value="/invoice", method=RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public InvoiceViewModel createInvoice(@RequestBody @Valid InvoiceViewModel invoice) {
         InvoiceViewModel existing = invoiceService.findInvoice(invoice.getInvoiceId());
@@ -26,7 +26,7 @@ public class InvoiceController {
         return invoice;
     }
 
-    @RequestMapping(value="/invoices", method=RequestMethod.GET)
+    @RequestMapping(value="/invoice", method=RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<InvoiceViewModel> getAllInvoices() {
         return invoiceService.findAllInvoices();

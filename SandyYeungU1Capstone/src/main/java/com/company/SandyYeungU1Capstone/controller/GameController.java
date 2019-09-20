@@ -16,7 +16,7 @@ public class GameController {
     @Autowired
     InvoiceServiceLayer invoiceService;
 
-    @RequestMapping(value = "/games/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/game", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public GameViewModel createGame(@RequestBody @Valid GameViewModel game) {
         GameViewModel existing = invoiceService.findGame(game.getGameId());
@@ -26,7 +26,7 @@ public class GameController {
         return game;
     }
 
-    @RequestMapping(value = "/games", method = RequestMethod.GET)
+    @RequestMapping(value = "/game", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<GameViewModel> getAllGames() {
         return invoiceService.findAllGames();
@@ -56,7 +56,7 @@ public class GameController {
         invoiceService.updateGame(game);
     }
 
-    @RequestMapping(value = "/games/rating/{esrbRating}", method = RequestMethod.GET)
+    @RequestMapping(value = "/game/rating/{esrbRating}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<GameViewModel> getGamesByEsrbRating(@PathVariable(name = "esrbRating") String esrbRating) {
         List<GameViewModel> games = invoiceService.getGamesByEsrbRating(esrbRating);
@@ -65,7 +65,7 @@ public class GameController {
         return games;
     }
 
-    @RequestMapping(value = "/games/title/{title}", method = RequestMethod.GET)
+    @RequestMapping(value = "/game/title/{title}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<GameViewModel> getGamesByTitle(@PathVariable(name = "title") String title) {
         List<GameViewModel> games = invoiceService.getGamesByTitle(title);
@@ -74,7 +74,7 @@ public class GameController {
         return games;
     }
 
-    @RequestMapping(value = "/games/studio/{studio}", method = RequestMethod.GET)
+    @RequestMapping(value = "/game/studio/{studio}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<GameViewModel> getGamesByStudio(@PathVariable(name = "studio") String studio) {
         List<GameViewModel> games = invoiceService.getGamesByStudio(studio);
