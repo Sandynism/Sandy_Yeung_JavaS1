@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "definition")
-public class Definition {
+public class Definition extends Glossary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,6 +17,10 @@ public class Definition {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id")
     private Glossary definition;
+
+    public Definition(Integer id, Definition... definitions) {
+        super(id, definitions);
+    }
 
     public Integer getId() {
         return id;
