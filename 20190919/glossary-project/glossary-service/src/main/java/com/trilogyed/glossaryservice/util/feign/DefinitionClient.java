@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(name = "glossary-service")
+@FeignClient(name = "definition-service")
 public interface DefinitionClient {
     @RequestMapping(value = "/definition/term/{term}", method = RequestMethod.GET)
     public List<Definition> getDefinitionsForTerm(@PathVariable String term);
