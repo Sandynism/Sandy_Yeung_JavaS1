@@ -1,6 +1,5 @@
 package com.trilogyed.hotelbookingservice.service;
 
-//import com.trilogyed.hotelbookingservice.dao.HotelBookingDao;
 import com.trilogyed.hotelbookingservice.model.BookingViewModel;
 import com.trilogyed.hotelbookingservice.model.HotelBooking;
 import com.trilogyed.hotelbookingservice.util.feign.RewardsClient;
@@ -8,7 +7,6 @@ import com.trilogyed.hotelbookingservice.util.feign.RoomClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,15 +14,11 @@ import java.util.List;
 @Service
 public class ServiceLayer {
 
-    //    private HotelBookingDao hotelBookingDao;
     private RewardsClient rewardsClient;
     private RoomClient roomClient;
 
-    //    public ServiceLayer(HotelBookingDao hotelBookingDao, RewardsClient rewardsClient, RoomClient roomClient) {
-//        this.hotelBookingDao = hotelBookingDao;
     @Autowired
     public ServiceLayer(RewardsClient rewardsClient, RoomClient roomClient) {
-//        this.hotelBookingDao = hotelBookingDao;
         this.rewardsClient = rewardsClient;
         this.roomClient = roomClient;
     }
@@ -34,7 +28,6 @@ public class ServiceLayer {
 
     }
 
-//    @Transactional
     public BookingViewModel saveBooking(BookingViewModel bvm) {
         HotelBooking booking = new HotelBooking();
         booking.setRoomId(bvm.getRoomId());
@@ -91,9 +84,7 @@ public class ServiceLayer {
         if (!isRewardsMember) {
             totalRewardsPoints = 0;
             finalCost = baseRate;
-        }
-
-        while (isRewardsMember) {
+        } else if (isRewardsMember) {
             if (isDoubleBonusDay && canDouble) {
                 totalRewardsPoints = baseRewardsPoints * 2;
             } else {
