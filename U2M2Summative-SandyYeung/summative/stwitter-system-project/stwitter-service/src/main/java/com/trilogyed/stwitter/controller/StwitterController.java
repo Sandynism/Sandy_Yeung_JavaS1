@@ -1,9 +1,15 @@
 package com.trilogyed.stwitter.controller;
 
+import com.trilogyed.stwitter.domain.Post;
 import com.trilogyed.stwitter.service.ServiceLayer;
+import com.trilogyed.stwitter.util.messages.Comment;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class StwitterController {
@@ -20,6 +26,31 @@ public class StwitterController {
         this.rabbitTemplate = rabbitTemplate;
         this.service = service;
     }
+
+    @PostMapping(value = "/posts")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Post createPost(@RequestBody Post post) {
+        List<String> commentsList = post.getComments();
+        for(String c : commentsList) {
+            System.out.println("Sending message...");
+            rabbitTemplate.convertAndSend(EXCHANGE_NAME, ROUTING_KEY, c);
+        }
+        return post;
+        //return service.addPost(post);
+    }
+
+//    @GetMapping(value="/posts/{id}")
+//    @ResponseStatus(value=HttpStatus.OK)
+//    public Post getPostById(@PathVariable int id) {
+//
+//    }
+//
+//    @GetMapping(value="/posts/user/{poster_name}")
+//    @ResponseStatus(value=HttpStatus.OK)
+//    public List<Post> getPostsByPosterName(@PathVariable(name="poster_name") String posterName) {
+//
+//    }
+
 
 
     //public static final String EXCHANGE = "queue-demo-exchange";

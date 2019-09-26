@@ -9,9 +9,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
-public class Post {
+public class PostViewModel {
     private int postId;
     @Size(min = 1, max = 255)
     private String post;
@@ -63,23 +62,5 @@ public class Post {
         this.comments = comments;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post1 = (Post) o;
-        return getPostId() == post1.getPostId() &&
-                getPost().equals(post1.getPost()) &&
-                getPostDate().equals(post1.getPostDate()) &&
-                getPosterName().equals(post1.getPosterName()) &&
-                getComments().equals(post1.getComments());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getPostId(), getPost(), getPostDate(), getPosterName(), getComments());
-    }
-
 
 }
-
