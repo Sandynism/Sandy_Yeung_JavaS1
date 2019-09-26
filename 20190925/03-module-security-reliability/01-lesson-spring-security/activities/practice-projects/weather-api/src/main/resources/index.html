@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello, World.</title>
+</head>
+<body>
+
+<h1 style="color: grey; letter-spacing:4px; text-align: center">Today's Forecast.</h1>
+
+<table style="margin-left: auto; margin-right: auto; border-color: black">
+    <thead style="text-align: center; letter-spacing: 4px; font-size: 20px; background-color: yellow">
+    <tr>
+        <th style="padding: 10px">Zipcode</th>
+        <th>Temperature</th>
+        <th>Wind Speed</th>
+        <th>Direction</th>
+        <th>Skies</th>
+    </tr>
+    </thead>
+    <tbody style="text-align: center; letter-spacing:4px; font-size: 18px">
+    <tr>
+        <td>11001</td>
+        <td>99</td>
+        <td>7 mph</td>
+        <td>Northwest</td>
+        <td>Sunny</td>
+    </tr>
+    </tbody>
+    <tbody style="text-align: center; letter-spacing:4px; font-size: 18px">
+    <tr>
+        <td>11002</td>
+        <td>97</td>
+        <td>3 mph</td>
+        <td>Northwest</td>
+        <td>Sunny</td>
+    </tr>
+    </tbody>
+</table>
+
+<div style="margin-left: auto; margin-right: auto; text-align: center; display: block; padding: 10px">
+    <form name="form" method="post" action="zipcodeServlet">
+        Zipcode: <input type="text" name="zipcode"/> <br/>
+        <input type="submit" value="submit"/>
+    </form>
+</div>
+
+<div>
+
+    <img style="margin-left: auto; margin-right: auto; display: block"
+         src="https://bloximages.chicago2.vip.townnews.com/tucson.com/content/tncms/assets/v3/editorial/5/32/532a6f42-e654-569d-bf77-d375acb5a4bf/5993869731142.image.jpg?resize=1200%2C900"
+         alt="sunny skies">
+</div>
+
+
+</body>
+</html>
