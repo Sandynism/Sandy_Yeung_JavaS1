@@ -16,7 +16,7 @@ public class PostDaoJdbcTemplateImpl implements PostDao {
 
     //prepared statements
     private static final String INSERT_POST_SQL =
-            "insert into post (post_date, poster_name, post) values (?,?,?)";
+            "insert into post (post_date, poster_name, post) values (?, ?, ?)";
 
     private static final String SELECT_POST_SQL =
             "select * from post where post_id = ?";
@@ -64,7 +64,7 @@ public class PostDaoJdbcTemplateImpl implements PostDao {
     public Post getPost(int postId) {
         try {
             return jdbcTemplate.queryForObject(SELECT_POST_SQL, this::mapRowToPost, postId);
-        } catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException | NullPointerException e) {
             return null;
         }
     }
