@@ -23,9 +23,6 @@ public class PostDaoTest {
     @Before
     public void setUp() throws Exception {
         List<Post> postList = postDao.getAllPosts();
-//        for(Post p: postList) {
-//            postDao.deletePost(p.getPostID());
-//        }
         postList.stream().forEach(p -> postDao.deletePost(p.getPostID()));
     }
 

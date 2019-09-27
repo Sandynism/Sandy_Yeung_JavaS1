@@ -13,13 +13,13 @@ import java.util.Objects;
 
 public class Post {
     private int postId;
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255, message = "Post must not be empty")
     private String post;
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate postDate;
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message = "Name must not be empty")
     private String posterName;
     private List<String> comments;
 

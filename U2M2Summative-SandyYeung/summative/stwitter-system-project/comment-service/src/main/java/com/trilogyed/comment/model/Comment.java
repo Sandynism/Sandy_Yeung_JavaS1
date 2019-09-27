@@ -1,13 +1,26 @@
 package com.trilogyed.comment.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Comment {
     private int commentId;
     private int postId;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate createDate;
+    @Size(min = 1, max = 50, message = "Name may not be empty")
     private String commenterName;
+    @Size(min = 1, max = 255, message = "Comment may not be empty")
     private String comment;
 
     public int getCommentId() {

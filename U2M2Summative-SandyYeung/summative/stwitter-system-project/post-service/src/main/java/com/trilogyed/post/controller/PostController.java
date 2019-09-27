@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class PostController {
 
@@ -29,16 +31,22 @@ public class PostController {
         return post;
     }
 
+    @RequestMapping(value="/posts", method= RequestMethod.GET)
+    @ResponseStatus(value=HttpStatus.OK)
+    public List<Post> getAllPosts() {
+        return postDao.getAllPosts();
+    }
+
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updatePost(@RequestBody Post post, @PathVariable int id) {
         Post exists = postDao.getPost(post.getPostID());
         if (exists == null)
-            throw new IllegalArgumentException("Post " + post.getPostID() + " does not exist. Cannot be updated.");
+            throw new IllegalArgumentException("Post " + id + " does not exist. Cannot be updated.");
         postDao.updatePost(post);
     }
 
-    @RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deletePost(@PathVariable int id) {
         postDao.deletePost(id);
