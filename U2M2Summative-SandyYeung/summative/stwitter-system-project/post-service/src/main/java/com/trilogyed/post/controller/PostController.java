@@ -51,4 +51,10 @@ public class PostController {
     public void deletePost(@PathVariable int id) {
         postDao.deletePost(id);
     }
+
+    @RequestMapping(value="/posts/user/{posterName}", method = RequestMethod.GET)
+    @ResponseStatus(value=HttpStatus.OK)
+    public List<Post> getAllPostsByName(@PathVariable(name ="posterName") String posterName) {
+        return postDao.getAllPostsByName(posterName);
+    }
 }
