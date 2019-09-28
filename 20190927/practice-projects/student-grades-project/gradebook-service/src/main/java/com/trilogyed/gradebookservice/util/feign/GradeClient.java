@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "unknown")
+@FeignClient(name = "student-service")
 public interface GradeClient {
 
     @GetMapping(value = "/grades/{id}")

@@ -30,6 +30,9 @@ public class ServiceLayer {
         grade.setAssignmentId(gb.getAssignmentId());
         grade.setPercentGrade(gb.getPercentGrade());
 
+        gradeClient.addGrade(grade);
+//        gb =  buildGradebook(grade.getId());
+
         gb.setId(grade.getId());
         gb.setStudentId(grade.getStudentId());
         gb.setAssignmentId(grade.getAssignmentId());
@@ -42,12 +45,12 @@ public class ServiceLayer {
         List<Grade> grades = gradeClient.getAllGrades();
         List<Gradebook> allGradebooks = new ArrayList<>();
 
-        grades.stream().forEach(g -> allGradebooks.add(buildGradebook(g.getId(), gradeClient)));
+        grades.stream().forEach(g -> allGradebooks.add(buildGradebook(g.getId())));
         return allGradebooks;
     }
 
 
-    private Gradebook buildGradebook(int id, GradeClient gradeClient) {
+    private Gradebook buildGradebook(int id) {
         Integer percentGrade = gradeClient.getGrade(id).getPercentGrade();
 
         if (percentGrade >= 90) {
