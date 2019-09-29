@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Post {
-    private int postId;
+    private Integer postId;
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -22,11 +22,11 @@ public class Post {
     @Size(min = 1, max = 255, message = "Post may not be empty")
     private String post;
 
-    public int getPostId() {
+    public Integer getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Integer postId) {
         this.postId = postId;
     }
 
@@ -59,7 +59,7 @@ public class Post {
         if (this == o) return true;
         if (!(o instanceof Post)) return false;
         Post post1 = (Post) o;
-        return getPostId() == post1.getPostId() &&
+        return getPostId().equals(post1.getPostId()) &&
                 getPostDate().equals(post1.getPostDate()) &&
                 getPosterName().equals(post1.getPosterName()) &&
                 getPost().equals(post1.getPost());

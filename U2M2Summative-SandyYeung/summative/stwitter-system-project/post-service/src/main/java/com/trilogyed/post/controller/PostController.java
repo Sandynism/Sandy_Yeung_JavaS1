@@ -24,7 +24,7 @@ public class PostController {
 
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public Post getPost(@PathVariable int id) {
+    public Post getPost(@PathVariable Integer id) {
         Post post = postDao.getPost(id);
         if (post == null)
             throw new NotFoundException("Post does not exist.");
@@ -39,7 +39,7 @@ public class PostController {
 
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void updatePost(@RequestBody Post post, @PathVariable int id) {
+    public void updatePost(@RequestBody Post post, @PathVariable Integer id) {
         Post exists = postDao.getPost(post.getPostId());
         if (exists == null)
             throw new IllegalArgumentException("Post " + id + " does not exist. Cannot be updated.");
@@ -48,7 +48,7 @@ public class PostController {
 
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deletePost(@PathVariable int id) {
+    public void deletePost(@PathVariable Integer id) {
         postDao.deletePost(id);
     }
 

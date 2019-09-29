@@ -8,7 +8,6 @@ import com.trilogyed.stwitter.util.feign.CommentClient;
 import com.trilogyed.stwitter.util.feign.PostClient;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,16 +25,15 @@ public class ServiceLayerTest {
     PostClient pc;
     CommentClient cc;
 
+    private static final Integer COMMENT_ID = new Integer(1);
+    private static final Integer POST_ID = new Integer(1);
+    private static final LocalDate CREATE_DATE = LocalDate.of(2019, 9, 27);
+    private static final String COMMENTER_NAME = "Heather";
+    private static final String COMMENT = "Check out my twitter account!";
     private static final List<String> STRING_COMMENTS = new ArrayList<>(Arrays.asList("Check out my twitter account!"));
-    private static final CommentViewModel CVM_INPUT = new CommentViewModel(1, LocalDate.of(2019, 9, 27), "Heather", "Check out my twitter account!");
-    private static final CommentViewModel CVM_OUTPUT = new CommentViewModel(1, 1, LocalDate.of(2019, 9, 27), "Heather", "Check out my twitter account!");
-    private static final PostViewModel PVM_INPUT = new PostViewModel("First tweet", LocalDate.of(2019, 9, 26), "Sandy", STRING_COMMENTS);
-    private static final PostViewModel PVM_OUTPUT = new PostViewModel(1, "First tweet", LocalDate.of(2019, 9, 26), "Sandy", STRING_COMMENTS);
-
-    private static final Comment COMMENT_INPUT = new Comment(1, LocalDate.of(2019, 9, 27), "Heather", "Check out my twitter account!");
-    private static final Comment COMMENT_OUTPUT = new Comment(1, 1, LocalDate.of(2019, 9, 27), "Heather", "Check out my twitter account!");
-    private static final Post POST_INPUT = new Post("First tweet", LocalDate.of(2019, 9, 26), "Sandy", STRING_COMMENTS);
-    private static final Post POST_OUTPUT = new Post(1, "First tweet", LocalDate.of(2019, 9, 26), "Sandy", STRING_COMMENTS);
+    private static final String POST = "First tweet.";
+    private static final LocalDate POST_DATE = LocalDate.of(2019, 9, 26);
+    private static final String POSTER_NAME = "Daniel";
 
     @Before
     public void setUp() throws Exception {
@@ -47,94 +45,155 @@ public class ServiceLayerTest {
     private void setUpPostClientMocks() {
         pc = mock(PostClient.class);
 
-        Comment comment = new Comment();
-        comment.setCommentId(1);
-        comment.setPostId(1);
-        comment.setCreateDate(LocalDate.of(2019, 9, 27));
-        comment.setCommenterName("Heather");
-        comment.setComment("Check out my twitter account!");
-
-        List<Comment> commentList = new ArrayList<>();
-        commentList.add(comment);
-
-        List<String> stringComments = new ArrayList<>();
-        for (Comment c : commentList) {
-            stringComments.add(c.getComment());
-        }
-
         Post post = new Post();
-        post.setPostId(1);
-        post.setPost("First tweet.");
-        post.setPostDate(LocalDate.of(2019, 9, 26));
-        post.setPosterName("Sandy");
-        post.setComments(stringComments);
+        post.setPostId(POST_ID);
+        post.setPost(POST);
+        post.setPostDate(POST_DATE);
+        post.setPosterName(POSTER_NAME);
+        post.setComments(STRING_COMMENTS);
 
         Post post1 = new Post();
-        post1.setPost("First tweet.");
-        post1.setPostDate(LocalDate.of(2019, 9, 26));
-        post1.setPosterName("Sandy");
-        post1.setComments(stringComments);
-
-        doReturn(post).when(pc).createPost(post1);
-        doReturn(post).when(pc).getPost(1);
+        post1.setPost(POST);
+        post1.setPostDate(POST_DATE);
+        post1.setPosterName(POSTER_NAME);
+        post1.setComments(STRING_COMMENTS);
 
         List<Post> postList = new ArrayList<>();
         postList.add(post);
 
+//        Post post2 = new Post();
+//        post2.setPostId(2);
+//        post2.setPost(POST + "updated");
+//        post2.setPostDate(POST_DATE);
+//        post2.setPosterName(POSTER_NAME);
+//        post2.setComments(STRING_COMMENTS);
+//
+//        Post post3 = new Post();
+//        post3.setPostId(3);
+//        post3.setPost(POST);
+//        post3.setPostDate(POST_DATE);
+//        post3.setPosterName(POSTER_NAME);
+//        post3.setComments(STRING_COMMENTS);
+//
+//        postList.add(post3);
+
+        doReturn(post).when(pc).createPost(post1);
+        doReturn(post).when(pc).getPost(POST_ID);
         doReturn(postList).when(pc).getAllPosts();
-        doReturn(postList).when(pc).getAllPostsByName("Sandy");
-//        doReturn(POST_OUTPUT).when(pc).createPost(POST_INPUT);
-//        doReturn(POST_OUTPUT).when(pc).getPost(1);
-//
-//        List<Post> postList = new ArrayList<>();
-//        postList.add(POST_INPUT);
-//
-//        doReturn(postList).when(pc).getAllPostsByName("Sandy");
-//        doReturn(postList).when(pc).getAllPosts();
+        doReturn(postList).when(pc).getAllPostsByName(POSTER_NAME);
+//        doNothing().when(pc).updatePost(post2, 2);
+//        doReturn(post2).when(pc).getPost(2);
+//        doNothing().when(pc).deletePost(3);
+//        doReturn(null).when(pc).getPost(3);
     }
 
     private void setUpCommentClientMocks() {
         cc = mock(CommentClient.class);
 
         Comment comment = new Comment();
-        comment.setCommentId(1);
-        comment.setPostId(1);
-        comment.setCreateDate(LocalDate.of(2019, 9, 27));
-        comment.setCommenterName("Heather");
-        comment.setComment("Check out my twitter account!");
+        comment.setCommentId(COMMENT_ID);
+        comment.setPostId(POST_ID);
+        comment.setCreateDate(CREATE_DATE);
+        comment.setCommenterName(COMMENTER_NAME);
+        comment.setComment(COMMENT);
 
         Comment comment1 = new Comment();
-        comment1.setPostId(1);
-        comment1.setCreateDate(LocalDate.of(2019, 9, 27));
-        comment1.setCommenterName("Heather");
-        comment1.setComment("Check out my twitter account!");
+        comment1.setPostId(POST_ID);
+        comment1.setCreateDate(CREATE_DATE);
+        comment1.setCommenterName(COMMENTER_NAME);
+        comment1.setComment(COMMENT);
 
         List<Comment> commentList = new ArrayList<>();
         commentList.add(comment);
 
-        doReturn(comment).when(cc).getComment(1);
+//        Comment comment2 = new Comment();
+//        comment2.setCommentId(2);
+//        comment2.setPostId(POST_ID);
+//        comment2.setCreateDate(CREATE_DATE);
+//        comment2.setCommenterName(COMMENTER_NAME);
+//        comment2.setComment(COMMENT + "updated");
+//
+//        Comment comment3 = new Comment();
+//        comment3.setCommentId(3);
+//        comment3.setPostId(POST_ID);
+//        comment3.setCreateDate(CREATE_DATE);
+//        comment3.setCommenterName(COMMENTER_NAME);
+//        comment3.setComment(COMMENT);
+//
+//        commentList.add(comment3);
+
+        doReturn(comment).when(cc).createComment(comment1);
+        doReturn(comment).when(cc).getComment(COMMENT_ID);
         doReturn(commentList).when(cc).getAllComments();
         doReturn(commentList).when(cc).getAllCommentsByName("Heather");
-        doReturn(commentList).when(cc).getAllCommentsByPostId(1);
-
-//        List<Comment> commentList = new ArrayList<>();
-//        commentList.add(COMMENT_INPUT);
-//
-//        doReturn(COMMENT_OUTPUT).when(cc).getComment(1);
-//        doReturn(commentList).when(cc).getAllCommentsByName("Heather");
-//        doReturn(commentList).when(cc).getAllCommentsByPostId(1);
-//        doReturn(commentList).when(cc).getAllComments();
+        doReturn(commentList).when(cc).getAllCommentsByPostId(POST_ID);
+//        doNothing().when(cc).updateComment(comment2, 2);
+//        doReturn(comment2).when(cc).getComment(2);
+//        doNothing().when(cc).deleteComment(3);
+//        doReturn(null).when(cc).getComment(3);
     }
 
     @Test
     public void createGetUpdateDeleteGetAllPost() {
+
+        PostViewModel pvm = new PostViewModel();
+        pvm.setPost(POST);
+        pvm.setPostDate(POST_DATE);
+        pvm.setPosterName(POSTER_NAME);
+        pvm.setComments(STRING_COMMENTS);
+
+        List<PostViewModel> allList = new ArrayList<>();
+        allList.add(pvm);
+
+        pvm = serviceLayer.createPost(pvm);
+        PostViewModel fromService = serviceLayer.getPost(pvm.getPostId());
+        assertEquals(pvm, fromService);
+
+        pvm = new PostViewModel();
+
+//        Post post2 = new Post();
+//        post2.setPostId(2);
+//        post2.setPost(POST + "updated");
+//        post2.setPostDate(POST_DATE);
+//        post2.setPosterName(POSTER_NAME);
+//        post2.setComments(STRING_COMMENTS);
+//
+//        pvm.setPostId(post2.getPostId());
+//        pvm.setPost(post2.getPost());
+//        pvm.setPostDate(post2.getPostDate());
+//        pvm.setPosterName(post2.getPosterName());
+//        pvm.setComments(post2.getComments());
+//
+//        serviceLayer.updatePost(pvm);
+//
+//        fromService = serviceLayer.getPost(2);
+//
+//        Post post3 = new Post();
+//        post3.setPostId(fromService.getPostId());
+//        post3.setPost(fromService.getPost());
+//        post3.setPostDate(fromService.getPostDate());
+//        post3.setPosterName(fromService.getPosterName());
+//        post3.setComments(fromService.getComments());
+//
+//        assertEquals(post2, post3);
+//
+//        serviceLayer.deletePost(3);
+//        fromService = serviceLayer.getPost(3);
+//        assertNull(fromService);
+
+        List<PostViewModel> pvmList = serviceLayer.getAllPosts();
+        assertEquals(allList, pvmList);
+    }
+
+    @Test
+    public void getAllPostsByName() {
         List<Comment> commentsList = new ArrayList<>();
         Comment comment = new Comment();
-        comment.setCommentId(1);
-        comment.setPostId(1);
-        comment.setCreateDate(LocalDate.of(2019, 9, 27));
-        comment.setCommenterName("Heather");
-        comment.setComment("Check out my twitter account!");
+        comment.setCommentId(COMMENT_ID);
+        comment.setPostId(POST_ID);
+        comment.setCreateDate(CREATE_DATE);
+        comment.setCommenterName(COMMENTER_NAME);
+        comment.setComment(COMMENT);
 
         commentsList.add(comment);
 
@@ -144,37 +203,67 @@ public class ServiceLayerTest {
         }
 
         PostViewModel pvm = new PostViewModel();
-        pvm.setPost("First tweet.");
-        pvm.setPostDate(LocalDate.of(2019, 9, 26));
-        pvm.setPosterName("Sandy");
-        pvm.setComments(stringComments);
-
-        List<PostViewModel> allList = new ArrayList<>();
-        allList.add(pvm);
+        pvm.setPost(POST);
+        pvm.setPostDate(POST_DATE);
+        pvm.setPosterName(POSTER_NAME);
+        pvm.setComments(STRING_COMMENTS);
 
         pvm = serviceLayer.createPost(pvm);
-        PostViewModel fromService = serviceLayer.getPost(pvm.getPostId());
-        assertEquals(pvm, fromService);
+        List<PostViewModel> fromService = serviceLayer.getAllPostsByName(POSTER_NAME);
+        assertEquals(fromService.size(), 1);
 
-        List<PostViewModel> pvmList = serviceLayer.getAllPosts();
-        assertEquals(allList, pvmList);
-    }
-
-    @Test
-    public void getAllPostsByName() {
-
+        fromService = serviceLayer.getAllPostsByName("Jesus");
+        assertEquals(fromService.size(), 0);
     }
 
     @Test
     public void createGetUpdateDeleteGetAllComment() {
+        CommentViewModel cvm = new CommentViewModel();
+        cvm.setPostId(POST_ID);
+        cvm.setCreateDate(CREATE_DATE);
+        cvm.setCommenterName(COMMENTER_NAME);
+        cvm.setComment(COMMENT);
+
+        List<CommentViewModel> allList = new ArrayList<>();
+        allList.add(cvm);
+
+        cvm = serviceLayer.createComment(cvm);
+        CommentViewModel fromService = serviceLayer.getComment(cvm.getCommentId());
+        assertEquals(cvm, fromService);
+
+        List<CommentViewModel> cvmList = serviceLayer.getAllComments();
+        assertEquals(allList, cvmList);
     }
 
     @Test
     public void getAllCommentsByName() {
+        CommentViewModel cvm = new CommentViewModel();
+        cvm.setPostId(POST_ID);
+        cvm.setCreateDate(CREATE_DATE);
+        cvm.setCommenterName(COMMENTER_NAME);
+        cvm.setComment(COMMENT);
+
+        cvm = serviceLayer.createComment(cvm);
+        List<CommentViewModel> fromService = serviceLayer.getAllCommentsByName(COMMENTER_NAME);
+        assertEquals(fromService.size(), 1);
+
+        fromService = serviceLayer.getAllCommentsByName("Mary");
+        assertEquals(fromService.size(), 0);
     }
 
     @Test
     public void getAllCommentsByPostId() {
+        CommentViewModel cvm = new CommentViewModel();
+        cvm.setPostId(POST_ID);
+        cvm.setCreateDate(CREATE_DATE);
+        cvm.setCommenterName(COMMENTER_NAME);
+        cvm.setComment(COMMENT);
 
+        cvm = serviceLayer.createComment(cvm);
+        List<CommentViewModel> fromService = serviceLayer.getAllCommentsByPostId(POST_ID);
+        assertEquals(fromService.size(), 1);
+
+        fromService = serviceLayer.getAllCommentsByPostId(10);
+        assertEquals(fromService.size(), 0);
     }
 }

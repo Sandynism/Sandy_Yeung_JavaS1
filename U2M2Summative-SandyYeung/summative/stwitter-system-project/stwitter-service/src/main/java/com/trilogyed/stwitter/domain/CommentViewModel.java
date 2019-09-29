@@ -83,13 +83,13 @@ public class CommentViewModel implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CommentViewModel)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         CommentViewModel that = (CommentViewModel) o;
-        return Objects.equals(getCommentId(), that.getCommentId()) &&
-                Objects.equals(getPostId(), that.getPostId()) &&
-                Objects.equals(getCreateDate(), that.getCreateDate()) &&
-                Objects.equals(getCommenterName(), that.getCommenterName()) &&
-                Objects.equals(getComment(), that.getComment());
+        return getCommentId().equals(that.getCommentId()) &&
+                getPostId().equals(that.getPostId()) &&
+                getCreateDate().equals(that.getCreateDate()) &&
+                getCommenterName().equals(that.getCommenterName()) &&
+                getComment().equals(that.getComment());
     }
 
     @Override

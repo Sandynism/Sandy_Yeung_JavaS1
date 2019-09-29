@@ -52,7 +52,7 @@ public class ServiceLayer {
     }
 
 
-    public PostViewModel getPost(int postId) throws NoSuchPostException {
+    public PostViewModel getPost(Integer postId) throws NoSuchPostException {
         Post post;
         try {
             post = postClient.getPost(postId);
@@ -99,10 +99,10 @@ public class ServiceLayer {
         post.setPosterName(pvm.getPosterName());
         post.setComments(pvm.getComments());
 
-        postClient.updatePost(post, post.getPostId());
+        postClient.updatePost(post, pvm.getPostId());
     }
 
-    public void deletePost(int postId) {
+    public void deletePost(Integer postId) {
         postClient.deletePost(postId);
     }
 
@@ -124,7 +124,7 @@ public class ServiceLayer {
         return cvm;
     }
 
-    public CommentViewModel getComment(int commentId) throws NoSuchCommentException {
+    public CommentViewModel getComment(Integer commentId) throws NoSuchCommentException {
         Comment comment;
         try {
             comment = commentClient.getComment(commentId);
@@ -156,7 +156,7 @@ public class ServiceLayer {
         return cvm;
     }
 
-    public List<CommentViewModel> getAllCommentsByPostId(int postId) {
+    public List<CommentViewModel> getAllCommentsByPostId(Integer postId) {
         List<Comment> commentsList = commentClient.getAllCommentsByPostId(postId);
         List<CommentViewModel> cvm = new ArrayList<>();
 
@@ -188,7 +188,7 @@ public class ServiceLayer {
         commentClient.deleteComment(commentId);
     }
 
-    private PostViewModel buildPostViewModel(int postId) {
+    private PostViewModel buildPostViewModel(Integer postId) {
         List<Comment> commentsList = commentClient.getAllCommentsByPostId(postId);
         List<String> stringComments = new ArrayList<>();
         for (Comment c : commentsList) {
@@ -205,7 +205,7 @@ public class ServiceLayer {
         return pvm;
     }
 
-    private CommentViewModel buildCommentViewModel(int commentId) {
+    private CommentViewModel buildCommentViewModel(Integer commentId) {
         CommentViewModel cvm = new CommentViewModel();
         cvm.setCommentId(commentId);
         cvm.setPostId(commentClient.getComment(commentId).getPostId());

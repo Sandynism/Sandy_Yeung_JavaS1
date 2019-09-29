@@ -24,7 +24,7 @@ public class CommentController {
 
     @RequestMapping(value = "/comments/{id}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public Comment getComment(@PathVariable int id) {
+    public Comment getComment(@PathVariable Integer id) {
         Comment comment = commentDao.getComment(id);
         if (comment == null)
             throw new NotFoundException("Comment does not exist.");
@@ -39,7 +39,7 @@ public class CommentController {
 
     @RequestMapping(value = "/comments/{id}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void updateComment(@RequestBody Comment comment, @PathVariable int id) {
+    public void updateComment(@RequestBody Comment comment, @PathVariable Integer id) {
         Comment exists = commentDao.getComment(comment.getCommentId());
         if (exists == null)
             throw new IllegalArgumentException("Comment " + id + " does not exist. Cannot be updated.");
@@ -49,13 +49,13 @@ public class CommentController {
 
     @RequestMapping(value = "/comments/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteComment(@PathVariable int id) {
+    public void deleteComment(@PathVariable Integer id) {
         commentDao.deleteComment(id);
     }
 
     @RequestMapping(value = "/comments/post/{postId}", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Comment> getAllCommentsByPostId(@PathVariable(name = "postId") int postId) {
+    public List<Comment> getAllCommentsByPostId(@PathVariable(name = "postId") Integer postId) {
         return commentDao.getAllCommentsByPostId(postId);
     }
 

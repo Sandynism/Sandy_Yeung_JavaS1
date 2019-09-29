@@ -86,11 +86,11 @@ public class Comment implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Comment)) return false;
         Comment comment1 = (Comment) o;
-        return getCommentId().equals(comment1.getCommentId()) &&
-                getPostId().equals(comment1.getPostId()) &&
-                getCreateDate().equals(comment1.getCreateDate()) &&
-                getCommenterName().equals(comment1.getCommenterName()) &&
-                getComment().equals(comment1.getComment());
+        return Objects.equals(getCommentId(), comment1.getCommentId()) &&
+                Objects.equals(getPostId(), comment1.getPostId()) &&
+                Objects.equals(getCreateDate(), comment1.getCreateDate()) &&
+                Objects.equals(getCommenterName(), comment1.getCommenterName()) &&
+                Objects.equals(getComment(), comment1.getComment());
     }
 
     @Override

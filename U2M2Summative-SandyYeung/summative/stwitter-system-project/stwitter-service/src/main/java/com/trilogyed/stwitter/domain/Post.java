@@ -38,6 +38,7 @@ public class Post {
         this.comments = comments;
     }
 
+
     public Integer getPostId() {
         return postId;
     }
@@ -83,11 +84,11 @@ public class Post {
         if (this == o) return true;
         if (!(o instanceof Post)) return false;
         Post post1 = (Post) o;
-        return getPostId().equals(post1.getPostId()) &&
-                getPost().equals(post1.getPost()) &&
-                getPostDate().equals(post1.getPostDate()) &&
-                getPosterName().equals(post1.getPosterName()) &&
-                getComments().equals(post1.getComments());
+        return Objects.equals(getPostId(), post1.getPostId()) &&
+                Objects.equals(getPost(), post1.getPost()) &&
+                Objects.equals(getPostDate(), post1.getPostDate()) &&
+                Objects.equals(getPosterName(), post1.getPosterName()) &&
+                Objects.equals(getComments(), post1.getComments());
     }
 
     @Override
