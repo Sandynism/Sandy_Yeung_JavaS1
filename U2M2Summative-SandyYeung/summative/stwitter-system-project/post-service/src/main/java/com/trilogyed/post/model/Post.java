@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Post {
-    private int postID;
+    private int postId;
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -22,12 +22,12 @@ public class Post {
     @Size(min = 1, max = 255, message = "Post may not be empty")
     private String post;
 
-    public int getPostID() {
-        return postID;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setPostID(int postID) {
-        this.postID = postID;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public LocalDate getPostDate() {
@@ -57,9 +57,9 @@ public class Post {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Post)) return false;
         Post post1 = (Post) o;
-        return getPostID() == post1.getPostID() &&
+        return getPostId() == post1.getPostId() &&
                 getPostDate().equals(post1.getPostDate()) &&
                 getPosterName().equals(post1.getPosterName()) &&
                 getPost().equals(post1.getPost());
@@ -67,8 +67,6 @@ public class Post {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPostID(), getPostDate(), getPosterName(), getPost());
+        return Objects.hash(getPostId(), getPostDate(), getPosterName(), getPost());
     }
-
-
 }

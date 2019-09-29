@@ -43,7 +43,7 @@ public class PostDaoJdbcTemplateImpl implements PostDao {
     //mapper method
     private Post mapRowToPost(ResultSet rs, int rowNum) throws SQLException {
         Post post = new Post();
-        post.setPostID(rs.getInt("post_id"));
+        post.setPostId(rs.getInt("post_id"));
         post.setPostDate(rs.getDate("post_date").toLocalDate());
         post.setPosterName(rs.getString("poster_name"));
         post.setPost(rs.getString("post"));
@@ -56,7 +56,7 @@ public class PostDaoJdbcTemplateImpl implements PostDao {
     public Post createPost(Post post) {
         jdbcTemplate.update(INSERT_POST_SQL, post.getPostDate(), post.getPosterName(), post.getPost());
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
-        post.setPostID(id);
+        post.setPostId(id);
         return post;
     }
 
@@ -76,7 +76,7 @@ public class PostDaoJdbcTemplateImpl implements PostDao {
 
     @Override
     public void updatePost(Post post) {
-        jdbcTemplate.update(UPDATE_POST_SQL, post.getPostDate(), post.getPosterName(), post.getPost(), post.getPostID());
+        jdbcTemplate.update(UPDATE_POST_SQL, post.getPostDate(), post.getPosterName(), post.getPost(), post.getPostId());
     }
 
     @Override

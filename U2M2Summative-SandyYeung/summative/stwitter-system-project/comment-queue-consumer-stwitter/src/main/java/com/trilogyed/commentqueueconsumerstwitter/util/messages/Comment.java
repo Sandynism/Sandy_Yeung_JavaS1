@@ -2,47 +2,29 @@ package com.trilogyed.commentqueueconsumerstwitter.util.messages;
 
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Comment {
-    private int commentId;
-    private int postId;
-    private LocalDate createDate;
+    private Integer commentId;
     private String commenterName;
     private String comment;
 
     public Comment(){}
 
-    public Comment(int commentId, int postId, LocalDate createDate, String commenterName, String comment){
+    public Comment(Integer commentId, String commenterName, String comment){
         this.commentId = commentId;
-        this.postId = postId;
-        this.createDate = createDate;
         this.commenterName = commenterName;
         this.comment = comment;
     }
 
-    public int getCommentId() {
+    public Integer getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    public LocalDate getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDate createDate) {
-        this.createDate = createDate;
-    }
 
     public String getCommenterName() {
         return commenterName;
@@ -61,11 +43,24 @@ public class Comment {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Comment)) return false;
+        Comment comment1 = (Comment) o;
+        return Objects.equals(getCommentId(), comment1.getCommentId()) &&
+                Objects.equals(getCommenterName(), comment1.getCommenterName()) &&
+                Objects.equals(getComment(), comment1.getComment());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCommentId(), getCommenterName(), getComment());
+    }
+
+    @Override
     public String toString() {
         return "Comment{" +
                 "Comment ID='" + commentId + '\'' +
-                ", Post ID='" + postId + '\'' +
-                ", Create Date='" + createDate + '\'' +
                 ", Commenter Name='" + commenterName + '\'' +
                 ", Comment='" + comment + '\'' +
                 '}';

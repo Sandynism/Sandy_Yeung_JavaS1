@@ -23,7 +23,7 @@ public class PostDaoTest {
     @Before
     public void setUp() throws Exception {
         List<Post> postList = postDao.getAllPosts();
-        postList.stream().forEach(p -> postDao.deletePost(p.getPostID()));
+        postList.stream().forEach(p -> postDao.deletePost(p.getPostId()));
     }
 
     @Test
@@ -35,13 +35,13 @@ public class PostDaoTest {
 
         post = postDao.createPost(post);
 
-        Post post2 = postDao.getPost(post.getPostID());
+        Post post2 = postDao.getPost(post.getPostId());
 
         assertEquals(post, post2);
 
-        postDao.deletePost(post.getPostID());
+        postDao.deletePost(post.getPostId());
 
-        post2 = postDao.getPost(post.getPostID());
+        post2 = postDao.getPost(post.getPostId());
 
         assertNull(post2);
     }
@@ -79,7 +79,7 @@ public class PostDaoTest {
 
         postDao.updatePost(post);
 
-        Post updatedPost = postDao.getPost(post.getPostID());
+        Post updatedPost = postDao.getPost(post.getPostId());
         assertEquals(post, updatedPost);
     }
 

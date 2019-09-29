@@ -10,22 +10,22 @@ import java.util.List;
 @FeignClient(name = "post-service")
 public interface PostClient {
 
-    @RequestMapping(value = "/posts", method = RequestMethod.POST)
+    @PostMapping(value = "/posts")
     Post createPost(@RequestBody Post post);
 
-    @RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/posts/{id}")
     Post getPost(@PathVariable int id);
 
-    @RequestMapping(value = "/posts/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/posts/{id}")
     void updatePost(@RequestBody Post post, @PathVariable int id);
 
-    @RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
+    @DeleteMapping(value = "/posts/{id}")
     void deletePost(@PathVariable int id);
 
-    @RequestMapping(value = "/posts/user/{posterName}", method = RequestMethod.GET)
+    @GetMapping(value = "/posts/user/{posterName}")
     List<Post> getAllPostsByName(@PathVariable String posterName);
 
-    @RequestMapping(value = "/posts", method = RequestMethod.GET)
+    @GetMapping(value = "/posts")
     List<Post> getAllPosts();
 
 }

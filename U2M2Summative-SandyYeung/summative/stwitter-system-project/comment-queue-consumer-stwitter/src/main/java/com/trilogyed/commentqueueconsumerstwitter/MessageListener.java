@@ -9,6 +9,7 @@ public class MessageListener {
 
     @RabbitListener(queues = CommentQueueConsumerStwitterApplication.QUEUE_NAME)
     public void receiveMessage(Comment msg) {
+
         System.out.println(msg.toString());
     }
 }

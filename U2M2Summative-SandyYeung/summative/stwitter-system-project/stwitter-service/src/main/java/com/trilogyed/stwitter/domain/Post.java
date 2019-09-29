@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Post {
-    private int postId;
+    private Integer postId;
     @Size(min = 1, max = 255, message = "Post must not be empty")
     private String post;
     @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -23,11 +23,26 @@ public class Post {
     private String posterName;
     private List<String> comments;
 
-    public int getPostId() {
+    public Post() {
+    }
+
+    public Post(Integer postId, String post, LocalDate postDate, String posterName, List<String> comments) {
+        this(post, postDate, posterName, comments);
+        this.postId = postId;
+    }
+
+    public Post(String post, LocalDate postDate, String posterName, List<String> comments) {
+        this.post = post;
+        this.postDate = postDate;
+        this.posterName = posterName;
+        this.comments = comments;
+    }
+
+    public Integer getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Integer postId) {
         this.postId = postId;
     }
 
@@ -66,9 +81,9 @@ public class Post {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Post)) return false;
         Post post1 = (Post) o;
-        return getPostId() == post1.getPostId() &&
+        return getPostId().equals(post1.getPostId()) &&
                 getPost().equals(post1.getPost()) &&
                 getPostDate().equals(post1.getPostDate()) &&
                 getPosterName().equals(post1.getPosterName()) &&
@@ -79,7 +94,5 @@ public class Post {
     public int hashCode() {
         return Objects.hash(getPostId(), getPost(), getPostDate(), getPosterName(), getComments());
     }
-
-
 }
 

@@ -40,7 +40,7 @@ public class PostController {
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updatePost(@RequestBody Post post, @PathVariable int id) {
-        Post exists = postDao.getPost(post.getPostID());
+        Post exists = postDao.getPost(post.getPostId());
         if (exists == null)
             throw new IllegalArgumentException("Post " + id + " does not exist. Cannot be updated.");
         postDao.updatePost(post);

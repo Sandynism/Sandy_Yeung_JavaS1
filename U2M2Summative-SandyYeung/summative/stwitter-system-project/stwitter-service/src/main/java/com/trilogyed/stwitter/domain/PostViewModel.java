@@ -9,9 +9,11 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class PostViewModel {
-    private int postId;
+
+    private Integer postId;
     @Size(min = 1, max = 255, message = "Post must not be empty")
     private String post;
     @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -22,11 +24,26 @@ public class PostViewModel {
     private String posterName;
     private List<String> comments;
 
-    public int getPostId() {
+    public PostViewModel() {
+    }
+
+    public PostViewModel(int postId, String post, LocalDate postDate, String posterName, List<String> comments) {
+        this(post, postDate, posterName, comments);
+        this.postId = postId;
+    }
+
+    public PostViewModel(String post, LocalDate postDate, String posterName, List<String> comments) {
+        this.post = post;
+        this.postDate = postDate;
+        this.posterName = posterName;
+        this.comments = comments;
+    }
+
+    public Integer getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Integer postId) {
         this.postId = postId;
     }
 
@@ -62,5 +79,20 @@ public class PostViewModel {
         this.comments = comments;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PostViewModel)) return false;
+        PostViewModel that = (PostViewModel) o;
+        return Objects.equals(getPostId(), that.getPostId()) &&
+                Objects.equals(getPost(), that.getPost()) &&
+                Objects.equals(getPostDate(), that.getPostDate()) &&
+                Objects.equals(getPosterName(), that.getPosterName()) &&
+                Objects.equals(getComments(), that.getComments());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPostId(), getPost(), getPostDate(), getPosterName(), getComments());
+    }
 }

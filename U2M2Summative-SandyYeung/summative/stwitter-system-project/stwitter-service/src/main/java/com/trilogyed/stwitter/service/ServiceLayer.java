@@ -4,8 +4,14 @@ import com.trilogyed.stwitter.domain.Comment;
 import com.trilogyed.stwitter.domain.CommentViewModel;
 import com.trilogyed.stwitter.domain.Post;
 import com.trilogyed.stwitter.domain.PostViewModel;
+import com.trilogyed.stwitter.exception.NoSuchCommentException;
+import com.trilogyed.stwitter.exception.NoSuchPostException;
+import com.trilogyed.stwitter.exception.NotFoundException;
 import com.trilogyed.stwitter.util.feign.CommentClient;
 import com.trilogyed.stwitter.util.feign.PostClient;
+import feign.Feign;
+import feign.FeignException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +23,7 @@ public class ServiceLayer {
     PostClient postClient;
     CommentClient commentClient;
 
+    @Autowired
     public ServiceLayer(PostClient postClient, CommentClient commentClient) {
         this.postClient = postClient;
         this.commentClient = commentClient;
@@ -29,17 +36,32 @@ public class ServiceLayer {
         post.setPosterName(pvm.getPosterName());
         post.setComments(pvm.getComments());
 
+        post = postClient.createPost(post);
+
         pvm.setPostId(post.getPostId());
         pvm.setPost(post.getPost());
         pvm.setPostDate(post.getPostDate());
         pvm.setPosterName(post.getPosterName());
-        pvm.setComments(post.getComments());
 
-        return pvm;
+        List<String> commentsList = post.getComments();
+        if (commentsList != null) {
+            pvm.setComments(commentsList);
+        }
+
+        return buildPostViewModel(pvm.getPostId());
     }
 
-    public PostViewModel getPost(int postId) {
-        return buildPostViewModel(postId);
+
+    public PostViewModel getPost(int postId) throws NoSuchPostException {
+        Post post;
+        try {
+            post = postClient.getPost(postId);
+        } catch (FeignException.NotFound fe) {
+            System.out.println("Post " + postId + " could not be found. " + fe.getMessage());
+            throw new NoSuchPostException(postId);
+        }
+
+        return buildPostViewModel(post.getPostId());
     }
 
     public List<PostViewModel> getAllPostsByName(String posterName) {
@@ -59,24 +81,30 @@ public class ServiceLayer {
         for (Post p : postList) {
             pvm.add(buildPostViewModel(p.getPostId()));
         }
-
         return pvm;
     }
 
-//    public void updatePost(PostViewModel pvm) {
-//        Post post = new Post();
-//        post.setPostId(pvm.getPostId());
-//        post.setPost(pvm.getPost());
-//        post.setPostDate(pvm.getPostDate());
-//        post.setPosterName(pvm.getPosterName());
-//        post.setComments(pvm.getComments());
-//
-//        postClient.updatePost(post, post.getPostId());
-//    }
-//
-//    public void deletePost(int postId) {
-//        postClient.deletePost(postId);
-//    }
+    public void updatePost(PostViewModel pvm) throws NoSuchPostException {
+        try {
+            int id = postClient.getPost(pvm.getPostId()).getPostId();
+        } catch (FeignException.NotFound fe) {
+            System.out.println("Post " + pvm.getPostId() + " could not be found. ");
+            throw new NoSuchPostException(pvm.getPostId());
+        }
+
+        Post post = new Post();
+        post.setPostId(pvm.getPostId());
+        post.setPost(pvm.getPost());
+        post.setPostDate(pvm.getPostDate());
+        post.setPosterName(pvm.getPosterName());
+        post.setComments(pvm.getComments());
+
+        postClient.updatePost(post, post.getPostId());
+    }
+
+    public void deletePost(int postId) {
+        postClient.deletePost(postId);
+    }
 
     public CommentViewModel createComment(CommentViewModel cvm) {
         Comment comment = new Comment();
@@ -85,7 +113,7 @@ public class ServiceLayer {
         comment.setCommenterName(cvm.getCommenterName());
         comment.setComment(cvm.getComment());
 
-        commentClient.createComment(comment);
+        comment = commentClient.createComment(comment);
 
         cvm.setCommentId(comment.getCommentId());
         cvm.setPostId(comment.getPostId());
@@ -96,7 +124,15 @@ public class ServiceLayer {
         return cvm;
     }
 
-    public CommentViewModel getComment(int commentId) {
+    public CommentViewModel getComment(int commentId) throws NoSuchCommentException {
+        Comment comment;
+        try {
+            comment = commentClient.getComment(commentId);
+        } catch (FeignException.NotFound fe) {
+            System.out.println("Comment " + commentId + "could not be found. " + fe.getMessage());
+            throw new NoSuchCommentException(commentId);
+        }
+
         return buildCommentViewModel(commentId);
     }
 
@@ -130,15 +166,37 @@ public class ServiceLayer {
         return cvm;
     }
 
+    public void updateComment(CommentViewModel cvm) throws NoSuchCommentException {
+        try {
+            int exists = commentClient.getComment(cvm.getCommentId()).getCommentId();
+        } catch (FeignException.NotFound fe) {
+            System.out.println("Comment " + cvm.getCommentId() + " could not be found.");
+            throw new NoSuchCommentException(cvm.getCommentId());
+        }
+
+        Comment comment = new Comment();
+        comment.setCommentId(cvm.getCommentId());
+        comment.setPostId(cvm.getPostId());
+        comment.setCreateDate(cvm.getCreateDate());
+        comment.setCommenterName(cvm.getCommenterName());
+        comment.setComment(cvm.getComment());
+
+        commentClient.updateComment(comment, cvm.getCommentId());
+    }
+
+    public void deleteComment(int commentId) {
+        commentClient.deleteComment(commentId);
+    }
+
     private PostViewModel buildPostViewModel(int postId) {
-        List<Comment> commentsList = commentClient.getAllCommentsByPostId(postClient.getPost(postId).getPostId());
+        List<Comment> commentsList = commentClient.getAllCommentsByPostId(postId);
         List<String> stringComments = new ArrayList<>();
         for (Comment c : commentsList) {
             stringComments.add(c.getComment());
         }
 
         PostViewModel pvm = new PostViewModel();
-        pvm.setPostId(postClient.getPost(postId).getPostId());
+        pvm.setPostId(postId);
         pvm.setPost(postClient.getPost(postId).getPost());
         pvm.setPostDate(postClient.getPost(postId).getPostDate());
         pvm.setPosterName(postClient.getPost(postId).getPosterName());
@@ -149,7 +207,7 @@ public class ServiceLayer {
 
     private CommentViewModel buildCommentViewModel(int commentId) {
         CommentViewModel cvm = new CommentViewModel();
-        cvm.setCommentId(commentClient.getComment(commentId).getCommentId());
+        cvm.setCommentId(commentId);
         cvm.setPostId(commentClient.getComment(commentId).getPostId());
         cvm.setCreateDate(commentClient.getComment(commentId).getCreateDate());
         cvm.setCommenterName(commentClient.getComment(commentId).getCommenterName());
