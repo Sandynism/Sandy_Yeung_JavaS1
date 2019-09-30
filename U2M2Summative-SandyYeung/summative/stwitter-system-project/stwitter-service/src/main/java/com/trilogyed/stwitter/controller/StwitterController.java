@@ -92,7 +92,7 @@ public class StwitterController {
 
 
     //    COMMENT
-//    @CachePut(key = "#result.getCommentId()")
+    @CachePut(key = "#result.getCommentId()")
     @PostMapping(value = "/comments")
     @ResponseStatus(value = HttpStatus.CREATED)
     public CommentViewModel createComment(@RequestBody CommentViewModel cvm) {
@@ -108,7 +108,7 @@ public class StwitterController {
         return cvm;
     }
 
-    //    @Cacheable
+    @Cacheable
     @GetMapping(value = "/comments/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public CommentViewModel getCommentById(@PathVariable Integer id) {
@@ -144,7 +144,7 @@ public class StwitterController {
         return cvmList;
     }
 
-    //    @CacheEvict(key="#comment.getCommentId()")
+    @CacheEvict(key="#cvm.getCommentId()")
     @PutMapping(value = "/comments/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateComment(@RequestBody CommentViewModel cvm, @PathVariable Integer id) {
