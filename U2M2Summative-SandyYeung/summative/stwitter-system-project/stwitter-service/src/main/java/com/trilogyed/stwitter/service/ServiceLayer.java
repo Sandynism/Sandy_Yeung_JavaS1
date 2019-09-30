@@ -61,7 +61,7 @@ public class ServiceLayer {
             throw new NoSuchPostException(postId);
         }
 
-        return buildPostViewModel(post.getPostId());
+        return buildPostViewModel(postId);
     }
 
     public List<PostViewModel> getAllPostsByName(String posterName) {
@@ -191,6 +191,15 @@ public class ServiceLayer {
     private PostViewModel buildPostViewModel(Integer postId) {
         List<Comment> commentsList = commentClient.getAllCommentsByPostId(postId);
         List<String> stringComments = new ArrayList<>();
+
+//        if (commentsList == null) {
+//            return null;
+//        } else {
+//            for (Comment c : commentsList) {
+//                stringComments.add(c.getComment());
+//            }
+//        }
+
         for (Comment c : commentsList) {
             stringComments.add(c.getComment());
         }

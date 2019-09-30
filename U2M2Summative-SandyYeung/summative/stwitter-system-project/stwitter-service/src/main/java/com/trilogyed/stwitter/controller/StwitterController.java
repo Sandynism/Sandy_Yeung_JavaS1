@@ -44,22 +44,29 @@ public class StwitterController {
     @PostMapping(value = "/posts")
     @ResponseStatus(value = HttpStatus.CREATED)
     public PostViewModel createPost(@RequestBody PostViewModel pvm) {
+//        PostViewModel exists = service.getPost(pvm.getPostId());
+//        if (exists != null)
+//            throw new IllegalArgumentException("POST " + pvm.getPostId() + " ALREADY EXISTS!");
         service.createPost(pvm);
-
-
         return pvm;
     }
 
     @GetMapping(value = "/posts/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public PostViewModel getPostById(@PathVariable Integer id) {
-        return service.getPost(id);
+        PostViewModel post = service.getPost(id);
+        if (post == null)
+            throw new NoSuchPostException(id);
+        return post;
     }
 
     @GetMapping(value = "/posts/user/{posterName}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<PostViewModel> getPostsByPosterName(@PathVariable(name = "posterName") String posterName) {
-        return service.getAllPostsByName(posterName);
+        List<PostViewModel> pvmList = service.getAllPostsByName(posterName);
+        if (pvmList != null && pvmList.size() == 0)
+            throw new NotFoundException("Posts by " + posterName + " could not be found.");
+        return pvmList;
     }
 
     @GetMapping(value = "/posts")
@@ -89,6 +96,9 @@ public class StwitterController {
     @PostMapping(value = "/comments")
     @ResponseStatus(value = HttpStatus.CREATED)
     public CommentViewModel createComment(@RequestBody CommentViewModel cvm) {
+//        CommentViewModel exists = service.getComment(cvm.getCommentId());
+//        if (exists != null)
+//            throw new IllegalArgumentException("Comment " + cvm.getCommentId() + " already exists!");
         service.createComment(cvm);
 
         Comment msg = new Comment(cvm.getCommentId(), cvm.getCommenterName(), cvm.getComment());
@@ -98,12 +108,16 @@ public class StwitterController {
         return cvm;
     }
 
-//    @Cacheable
+    //    @Cacheable
     @GetMapping(value = "/comments/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public CommentViewModel getCommentById(@PathVariable Integer id) {
+        CommentViewModel comment = service.getComment(id);
+        if (comment == null)
+            throw new NoSuchCommentException(id);
+
         System.out.println("GETTING COMMENT ID: " + id);
-        return service.getComment(id);
+        return comment;
     }
 
     @GetMapping(value = "/comments")
@@ -115,16 +129,22 @@ public class StwitterController {
     @GetMapping(value = "/comments/name/{commenterName}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<CommentViewModel> getAllCommentsByName(@PathVariable(name = "commenterName") String commenterName) {
-        return service.getAllCommentsByName(commenterName);
+        List<CommentViewModel> cvmList = service.getAllCommentsByName(commenterName);
+        if (cvmList != null && cvmList.size() == 0)
+            throw new NotFoundException("Comments by " + commenterName + " could not be found.");
+        return cvmList;
     }
 
     @GetMapping(value = "/comments/post/{postId}")
     @ResponseStatus(value = HttpStatus.OK)
     public List<CommentViewModel> getAllCommentsByPostId(@PathVariable(name = "postId") Integer postId) {
-        return service.getAllCommentsByPostId(postId);
+        List<CommentViewModel> cvmList = service.getAllCommentsByPostId(postId);
+        if (cvmList != null && cvmList.size() == 0)
+            throw new NotFoundException("Comments by " + postId + " could not be found.");
+        return cvmList;
     }
 
-//    @CacheEvict(key="#comment.getCommentId()")
+    //    @CacheEvict(key="#comment.getCommentId()")
     @PutMapping(value = "/comments/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateComment(@RequestBody CommentViewModel cvm, @PathVariable Integer id) {
