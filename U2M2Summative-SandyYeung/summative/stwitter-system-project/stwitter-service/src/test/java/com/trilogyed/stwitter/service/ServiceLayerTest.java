@@ -77,10 +77,13 @@ public class ServiceLayerTest {
 
         postList.add(post3);
 
+        List<Post> nameList = new ArrayList<>();
+        nameList.add(post);
+
         doReturn(post).when(pc).createPost(post1);
         doReturn(post).when(pc).getPost(POST_ID);
         doReturn(postList).when(pc).getAllPosts();
-        doReturn(postList).when(pc).getAllPostsByName(POSTER_NAME);
+        doReturn(nameList).when(pc).getAllPostsByName(POSTER_NAME);
         doNothing().when(pc).updatePost(post2, 2);
         doReturn(post2).when(pc).getPost(2);
         doNothing().when(pc).deletePost(3);
@@ -188,20 +191,6 @@ public class ServiceLayerTest {
 
     @Test
     public void getAllPostsByName() {
-        List<Comment> commentsList = new ArrayList<>();
-        Comment comment = new Comment();
-        comment.setCommentId(COMMENT_ID);
-        comment.setPostId(POST_ID);
-        comment.setCreateDate(CREATE_DATE);
-        comment.setCommenterName(COMMENTER_NAME);
-        comment.setComment(COMMENT);
-
-        commentsList.add(comment);
-
-        List<String> stringComments = new ArrayList<>();
-        for (Comment c : commentsList) {
-            stringComments.add(c.getComment());
-        }
 
         PostViewModel pvm = new PostViewModel();
         pvm.setPost(POST);
