@@ -151,7 +151,7 @@ public class StwitterController {
         CommentViewModel comment = service.getComment(id);
         if (comment == null)
             throw new NoSuchCommentException(id);
-        System.out.println("UPDATING COMMENT...");
+        System.out.println("UPDATING COMMENT ID: " + id );
         service.updateComment(cvm);
     }
 
