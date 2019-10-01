@@ -101,7 +101,7 @@ public class StwitterController {
 //            throw new IllegalArgumentException("Comment " + cvm.getCommentId() + " already exists!");
         service.createComment(cvm);
 
-        Comment msg = new Comment(cvm.getCommentId(), cvm.getCommenterName(), cvm.getComment());
+        Comment msg = new Comment(cvm.getCommentId(), cvm.getPostId(), cvm.getCreateDate(), cvm.getCommenterName(), cvm.getComment());
         System.out.println("CREATING COMMENT ID " + cvm.getCommentId());
         rabbitTemplate.convertAndSend(EXCHANGE_NAME, ROUTING_KEY, msg);
 
