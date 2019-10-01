@@ -61,6 +61,10 @@ public class ServiceLayerTest {
         List<Post> postList = new ArrayList<>();
         postList.add(post);
 
+        doReturn(post).when(pc).createPost(post1);
+        doReturn(post).when(pc).getPost(POST_ID);
+        doReturn(postList).when(pc).getAllPosts();
+
         Post post2 = new Post();
         post2.setPostId(2);
         post2.setPost(POST + "updated");
@@ -68,21 +72,18 @@ public class ServiceLayerTest {
         post2.setPosterName(POSTER_NAME);
         post2.setComments(STRING_COMMENTS);
 
-        Post post3 = new Post();
-        post3.setPostId(3);
-        post3.setPost(POST);
-        post3.setPostDate(POST_DATE);
-        post3.setPosterName(POSTER_NAME);
-        post3.setComments(STRING_COMMENTS);
-
-        postList.add(post3);
+//        Post post3 = new Post();
+//        post3.setPostId(3);
+//        post3.setPost(POST);
+//        post3.setPostDate(POST_DATE);
+//        post3.setPosterName(POSTER_NAME);
+//        post3.setComments(STRING_COMMENTS);
+//
+//        postList.add(post3);
 
         List<Post> nameList = new ArrayList<>();
         nameList.add(post);
 
-        doReturn(post).when(pc).createPost(post1);
-        doReturn(post).when(pc).getPost(POST_ID);
-        doReturn(postList).when(pc).getAllPosts();
         doReturn(nameList).when(pc).getAllPostsByName(POSTER_NAME);
         doNothing().when(pc).updatePost(post2, 2);
         doReturn(post2).when(pc).getPost(2);
@@ -109,12 +110,19 @@ public class ServiceLayerTest {
         List<Comment> commentList = new ArrayList<>();
         commentList.add(comment);
 
-//        Comment comment2 = new Comment();
-//        comment2.setCommentId(2);
-//        comment2.setPostId(POST_ID);
-//        comment2.setCreateDate(CREATE_DATE);
-//        comment2.setCommenterName(COMMENTER_NAME);
-//        comment2.setComment(COMMENT + "updated");
+        doReturn(comment).when(cc).createComment(comment1);
+        doReturn(comment).when(cc).getComment(COMMENT_ID);
+        doReturn(commentList).when(cc).getAllComments();
+        doReturn(commentList).when(cc).getAllCommentsByName("Heather");
+        doReturn(commentList).when(cc).getAllCommentsByPostId(POST_ID);
+        doReturn(commentList).when(cc).getAllCommentsByPostId(2);
+
+        Comment comment2 = new Comment();
+        comment2.setCommentId(2);
+        comment2.setPostId(POST_ID);
+        comment2.setCreateDate(CREATE_DATE);
+        comment2.setCommenterName(COMMENTER_NAME);
+        comment2.setComment(COMMENT + "updated");
 //
 //        Comment comment3 = new Comment();
 //        comment3.setCommentId(3);
@@ -125,12 +133,6 @@ public class ServiceLayerTest {
 //
 //        commentList.add(comment3);
 
-        doReturn(comment).when(cc).createComment(comment1);
-        doReturn(comment).when(cc).getComment(COMMENT_ID);
-        doReturn(commentList).when(cc).getAllComments();
-        doReturn(commentList).when(cc).getAllCommentsByName("Heather");
-        doReturn(commentList).when(cc).getAllCommentsByPostId(POST_ID);
-        doReturn(commentList).when(cc).getAllCommentsByPostId(2);
 //        doNothing().when(cc).updateComment(comment2, 2);
 //        doReturn(comment2).when(cc).getComment(2);
 //        doNothing().when(cc).deleteComment(3);
@@ -172,8 +174,8 @@ public class ServiceLayerTest {
 
         fromService = serviceLayer.getPost(2);
 
-//        List<PostViewModel> pvmList = serviceLayer.getAllPosts();
-//        assertEquals(allList, pvmList);
+        List<PostViewModel> pvmList = serviceLayer.getAllPosts();
+        assertEquals(allList, pvmList);
 
 //        Post post3 = new Post();
 //        post3.setPostId(fromService.getPostId());
