@@ -1,0 +1,223 @@
+//console
+Console console = new Console();
+console.setModel("PS4");
+console.setManufacturer("Sony");
+console.setMemoryAmount("512 MB");
+console.setProcessor("APU");
+console.setPrice(new BigDecimal("299.99"));
+console.setQuantity(8);
+
+consoleDao.addConsole(console);
+
+console = new Console();
+console.setModel("XBOX 360");
+console.setManufacturer("Microsoft");
+console.setMemoryAmount("512 MB");
+console.setProcessor("Triple Core Xenon");
+console.setPrice(new BigDecimal("310.99"));
+console.setQuantity(10);
+
+consoleDao.addConsole(console);
+
+//console mocks
+Console console = new Console();
+console.setConsoleId(1);
+console.setModel("PS4");
+console.setManufacturer("Sony");
+console.setMemoryAmount("512 MB");
+console.setProcessor("APU");
+console.setPrice(new BigDecimal("299.99"));
+console.setQuantity(8);
+
+Console console1 = new Console();
+console1.setModel("PS4");
+console1.setManufacturer("Sony");
+console1.setMemoryAmount("512 MB");
+console1.setProcessor("APU");
+console1.setPrice(new BigDecimal("299.99"));
+console1.setQuantity(8);
+
+List<Console> consoleList = new ArrayList<>();
+    consoleList.add(console);
+
+//game
+Game game = new Game();
+game.setTitle("Rayman Raving Rabbids");
+game.setEsrbRating("E");
+game.setDescription("The series focuses on wild rabbit-like creatures known as Rabbids, who like to cause havoc and mischief, speak gibberish and yell.");
+game.setPrice(new BigDecimal("39.99"));
+game.setStudio("Ubisoft Motion Pictures");
+game.setQuantity(25);
+
+gameDao.addGame(game);
+
+game = new Game();
+game.setTitle("Dance Dance Revolution");
+game.setEsrbRating("E");
+game.setDescription("A dance party where you use arrows to match the beats.");
+game.setPrice(new BigDecimal("59.99"));
+game.setStudio("Konami");
+game.setQuantity(15);
+
+gameDao.addGame(game);
+
+//game mocks
+Game game = new Game();
+game.setGameId(1);
+game.setTitle("Rayman Raving Rabbids");
+game.setEsrbRating("E");
+game.setDescription("The series focuses on wild rabbit-like creatures known as Rabbids, who like to cause havoc and mischief, speak gibberish and yell.");
+game.setPrice(new BigDecimal("39.99"));
+game.setStudio("Ubisoft Motion Pictures");
+game.setQuantity(25);
+
+Game game1 = new Game();
+game1.setTitle("Rayman Raving Rabbids");
+game1.setEsrbRating("E");
+game1.setDescription("The series focuses on wild rabbit-like creatures known as Rabbids, who like to cause havoc and mischief, speak gibberish and yell.");
+game1.setPrice(new BigDecimal("39.99"));
+game1.setStudio("Ubisoft Motion Pictures");
+game1.setQuantity(25);
+
+List<Game> gameList = new ArrayList<>();
+    gameList.add(game);
+
+//tshirt
+Tshirt tshirt = new Tshirt();
+tshirt.setSize("Medium");
+tshirt.setColor("White");
+tshirt.setDescription("Premium Cotton");
+tshirt.setPrice(new BigDecimal("9.99"));
+tshirt.setQuantity(10);
+
+tshirtDao.addTshirt(tshirt);
+
+tshirt = new Tshirt();
+tshirt.setSize("Small");
+tshirt.setColor("Black");
+tshirt.setDescription("Polyester");
+tshirt.setPrice(new BigDecimal("5.99"));
+tshirt.setQuantity(100);
+
+tshirtDao.addTshirt(tshirt);
+
+//tshirt mocks
+Tshirt tshirt = new Tshirt();
+tshirt.setTshirtId(1);
+tshirt.setSize("Medium");
+tshirt.setColor("White");
+tshirt.setDescription("Premium Cotton");
+tshirt.setPrice(new BigDecimal("9.99"));
+tshirt.setQuantity(10);
+
+Tshirt tshirt1 = new Tshirt();
+tshirt1.setSize("Medium");
+tshirt1.setColor("White");
+tshirt1.setDescription("Premium Cotton");
+tshirt1.setPrice(new BigDecimal("9.99"));
+tshirt1.setQuantity(10);
+
+List<Tshirt> tshirtList = new ArrayList<>();
+tshirtList.add(tshirt);
+
+
+Tshirt tshirt2 = new Tshirt();
+tshirt2.setQuantity(15);
+
+//invoice
+Invoice invoice = new Invoice();
+invoice.setName("Sandy Yeung");
+invoice.setStreet("189th St");
+invoice.setCity("Fresh Meadows");
+invoice.setState("NY");
+invoice.setZipcode("11365");
+invoice.setItemType("Games");
+invoice.setItemId(1);
+invoice.setUnitPrice(new BigDecimal("29.99"));
+invoice.setQuantity(5);
+invoice.setSubtotal(new BigDecimal("149.95"));
+invoice.setTax(new BigDecimal("0.05"));
+invoice.setProcessingFee(new BigDecimal("1.49"));
+invoice.setTotal(new BigDecimal("158.94"));
+
+invoiceDao.addInvoice(invoice);
+
+invoice = new Invoice();
+invoice.setName("Kenny Hom");
+invoice.setStreet("97th Pl");
+invoice.setCity("Corona");
+invoice.setState("NY");
+invoice.setZipcode("11368");
+invoice.setItemType("Consoles");
+invoice.setItemId(1);
+invoice.setUnitPrice(new BigDecimal("299.99"));
+invoice.setQuantity(1);
+invoice.setSubtotal(new BigDecimal("299.99"));
+invoice.setTax(new BigDecimal("0.05"));
+invoice.setProcessingFee(new BigDecimal("14.99"));
+invoice.setTotal(new BigDecimal("329.98"));
+
+invoiceDao.addInvoice(invoice);
+
+//invoice mocks
+Invoice invoice = new Invoice();
+invoice.setInvoiceId(1);
+invoice.setName("Sandy Yeung");
+invoice.setStreet("189th St");
+invoice.setCity("Fresh Meadows");
+invoice.setState("NY");
+invoice.setZipcode("11365");
+invoice.setItemType("game");
+invoice.setItemId(1);
+invoice.setUnitPrice(new BigDecimal("39.99"));
+invoice.setQuantity(5);
+invoice.setSubtotal(new BigDecimal("199.95"));
+invoice.setTax(new BigDecimal("0.06"));
+invoice.setProcessingFee(new BigDecimal("1.49"));
+invoice.setTotal(new BigDecimal("213.4370"));
+
+Invoice invoice1 = new Invoice();
+invoice1.setName("Sandy Yeung");
+invoice1.setStreet("189th St");
+invoice1.setCity("Fresh Meadows");
+invoice1.setState("NY");
+invoice1.setZipcode("11365");
+invoice1.setItemType("game");
+invoice1.setItemId(1);
+invoice1.setUnitPrice(new BigDecimal("39.99"));
+invoice1.setQuantity(5);
+invoice1.setSubtotal(new BigDecimal("199.95"));
+invoice1.setTax(new BigDecimal("0.06"));
+invoice1.setProcessingFee(new BigDecimal("1.49"));
+
+List<Invoice> invoiceList = new ArrayList<>();
+invoiceList.add(invoice);
+
+Invoice invoice2 = new Invoice();
+invoice2.setQuantity(10);
+
+//processing fee
+ProcessingFee processingFee = new ProcessingFee();
+processingFee.setProductType("consoles");
+processingFee.setFee(new BigDecimal("14.99"));
+
+processingFeeDao.addProcessingFee(processingFee);
+
+processingFee = new ProcessingFee();
+processingFee.setProductType("games");
+processingFee.setFee(new BigDecimal("1.49"));
+
+processingFeeDao.addProcessingFee(processingFee);
+
+//sales tax rate
+SalesTaxRate salesTaxRate = new SalesTaxRate();
+salesTaxRate.setState("NY");
+salesTaxRate.setRate(new BigDecimal("0.06"));
+
+salesTaxRateDao.addSalesTaxRate(salesTaxRate);
+
+salesTaxRate = new SalesTaxRate();
+salesTaxRate.setState("CA");
+salesTaxRate.setRate(new BigDecimal("0.06"));
+
+salesTaxRateDao.addSalesTaxRate(salesTaxRate);
