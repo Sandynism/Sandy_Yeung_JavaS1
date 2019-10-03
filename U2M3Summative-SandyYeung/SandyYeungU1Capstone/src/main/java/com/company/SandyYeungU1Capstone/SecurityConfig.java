@@ -39,15 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.httpBasic();
 
+        //order them with most specific to most general
         httpSecurity.authorizeRequests()
-                .mvcMatchers(HttpMethod.PUT, "/invoice/*").hasAuthority("ROLE_STAFF")
-                .mvcMatchers(HttpMethod.PUT, "/invoice/*").hasAuthority("ROLE_MANAGER")
-                .mvcMatchers(HttpMethod.PUT, "/invoice/*").hasAuthority("ROLE_ADMIN")
-                .mvcMatchers(HttpMethod.DELETE, "/invoice/*").hasAuthority("ROLE_ADMIN")
-                .mvcMatchers(HttpMethod.POST, "/invoice"). hasAuthority("ROLE_MANAGER")
-                .mvcMatchers(HttpMethod.POST, "/invoice"). hasAuthority("ROLE_ADMIN")
-
+                .mvcMatchers("/loggedin").authenticated()
+                .mvcMatchers(HttpMethod.PUT, "/invoice/*", "/tshirt/*", "/game/*", "/console/*").hasAnyRole("STAFF, MANAGER, ADMIN")
+                .mvcMatchers(HttpMethod.DELETE, "/invoice/*", "/tshirt/*", "/game/*", "/console/*").hasRole("ADMIN")
+                .mvcMatchers(HttpMethod.POST, "/invoice", "/tshirt", "/game", "/console").hasAnyRole("MANAGER, ADMIN")
                 .anyRequest().permitAll();
+
 
         httpSecurity
                 .logout()
