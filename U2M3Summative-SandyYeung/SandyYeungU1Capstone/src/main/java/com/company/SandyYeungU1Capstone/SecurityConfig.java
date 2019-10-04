@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //order them with most specific to most general
         httpSecurity.authorizeRequests()
-                .mvcMatchers("/loggedin").authenticated()
+//                .mvcMatchers("/login").authenticated()
                 .mvcMatchers(HttpMethod.PUT, "/invoice/*", "/tshirt/*", "/game/*", "/console/*").hasAnyRole("STAFF, MANAGER, ADMIN")
                 .mvcMatchers(HttpMethod.DELETE, "/invoice/*", "/tshirt/*", "/game/*", "/console/*").hasRole("ADMIN")
                 .mvcMatchers(HttpMethod.POST, "/invoice", "/tshirt", "/game", "/console").hasAnyRole("MANAGER, ADMIN")
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/allDone")
+                .logoutSuccessUrl("/login")
                 .deleteCookies("JSESSIONID")
                 .deleteCookies("XSRF-TOKEN")
                 .invalidateHttpSession(true);
